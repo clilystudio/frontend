@@ -25,7 +25,6 @@
     "ngx-onsenui": "^4.2.2",
     "onsenui": "^2.10.5",
     "rxjs": "~6.2.0",
-    "semantic-ui-css": "^2.4.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
