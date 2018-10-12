@@ -13,6 +13,7 @@ export class AppComponent implements AfterViewInit {
   public ngAfterViewInit()
   {
     $('.menu .item').tab();
+    this.listEmp();
   }
 
   listEmp() {

@@ -1,0 +1,6 @@
+#emptoolbar {
+    position: fixed;
+    top: 5rem;
+    left: 1rem;
+    width: auto;
+}

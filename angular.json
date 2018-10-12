@@ -25,13 +25,9 @@
               "projects/manage/src/assets"
             ],
             "styles": [
-              "semantic/semantic.min.css",
               "projects/manage/src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "semantic/semantic.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
