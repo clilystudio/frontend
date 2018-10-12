@@ -13,6 +13,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref" : "/manage/",
+            "deployUrl": "/manage/",
             "outputPath": "dist/manage",
             "index": "projects/manage/src/manage.html",
             "main": "projects/manage/src/main.ts",
@@ -27,8 +29,8 @@
               "projects/manage/src/styles.css"
             ],
             "scripts": [
-              "semantic/semantic.min.js",
-              "node_modules/jquery/dist/jquery.min.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "semantic/semantic.min.js"
             ]
           },
           "configurations": {
