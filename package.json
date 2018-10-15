@@ -24,7 +24,8 @@
     "jquery": "^3.3.1",
     "ngx-onsenui": "^4.2.2",
     "onsenui": "^2.10.5",
-    "rxjs": "~6.2.0",
+    "rxjs": "^6.2.2",
+    "rxjs-compat": "^6.3.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UploadService } from './upload.service';
+import { empInfo} from './empInfo';
 
 declare var $: any;
 
@@ -9,7 +11,10 @@ declare var $: any;
 })
 export class EmpComponent implements OnInit {
 
-  constructor() { }
+  empList: empInfo[];
+  errorMessage: string;
+
+  constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
     $("#menu1").popup({
@@ -27,5 +32,25 @@ export class EmpComponent implements OnInit {
       content  : '批量导入',
       target   : $("#menu3")
     })
+  }
+
+  uploadEmp(event) {
+    $('.ui.page.dimmer').dimmer({closable: false}).dimmer('show');
+    const file = event.target.files[0];
+    console.log('### uploadEmp!' + file.name);
+    const progress = this.uploadService.upload(file, 'emp/upload');
+    progress.subscribe(result => this.uploadFinish(result));
+  }
+
+  uploadFinish(result) {
+    $('.ui.page.dimmer').dimmer('hide');
+    $('#errorTip').modal('show');
+    const code = result["code"];
+    const message = result["message"];
+    if (code === "0") {
+
+    } else {
+
+    }
   }
 }
