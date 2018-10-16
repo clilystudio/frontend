@@ -15,9 +15,11 @@ export class EmpComponent implements OnInit {
   empList: EmpInfo[];
   errorTitle: string;
   errorMessage: string;
-  newEmp: EmpInfo;
+  empNew: EmpInfo;
 
-  constructor(private empService: EmpService) { }
+  constructor(private empService: EmpService) {
+    this.empNew = new EmpInfo();
+  }
 
   ngOnInit() {
     $("#menu1").popup({
@@ -87,5 +89,13 @@ export class EmpComponent implements OnInit {
     const progress = this.empService.delete(delEmpIds);
     progress.subscribe(result => this.postFinish(result, '删除员工数据失败'));
     console.log("###removeEmp:" + length);
+  }
+
+  newEmp() {
+    $('#newEmpWin').modal('show');
+  }
+
+  addEmp() {
+    console.log("###addEmp:" + JSON.stringify(this.empNew));
   }
 }
