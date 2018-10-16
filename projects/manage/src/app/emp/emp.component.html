@@ -4,39 +4,34 @@
   <input type="file" (change)="uploadEmp($event)" class="inputfile" id="uploadEmpFile" accept=".csv" />
   <label id="menu3" for="uploadEmpFile" class="ui blue button"><i class="upload icon"></i></label>
 </div>
-<table id="example" class="ui celled table" style="width: 100%">
+<table id="example" class="ui selectable celled table" style="width: 100%">
   <thead>
     <tr>
-      <th>
-        <div class="ui checkbox">
-          <input type="checkbox">
-          <label>编号</label>
-        </div>
-      </th>
-      <th>姓名</th>
-      <th>名</th>
-      <th>姓</th>
-      <th>性别</th>
-      <th>部门</th>
-      <th>倍率</th>
-      <th>中奖</th>
+      <th class="collapsing center aligned">编号</th>
+      <th class="collapsing center aligned">姓名</th>
+      <th class="collapsing center aligned">名</th>
+      <th class="collapsing center aligned">姓</th>
+      <th class="collapsing center aligned">部门编号</th>
+      <th class="center aligned">部门名称</th>
+      <th class="collapsing center aligned">倍率</th>
+      <th class="collapsing center aligned">中奖</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngFor="let emp of empList">
       <td>
         <div class="ui checkbox">
-          <input type="checkbox" />
-          <label>DL0805006</label>
+          <input type="checkbox" ng-model="emp.isSelected" />
+          <label>{{ emp.empId }}</label>
         </div>
       </td>
-      <td>盛广立</td>
-      <td>Guangli</td>
-      <td>Sheng</td>
-      <td>男</td>
-      <td>W5310</td>
-      <td>1</td>
-      <td>未中</td>
+      <td>{{ emp.empCname }}</td>
+      <td>{{ emp.empFname }}</td>
+      <td>{{ emp.empLname }}</td>
+      <td>{{ emp.empDeptno }}</td>
+      <td>{{ emp.empDeptname }}</td>
+      <td class="collapsing right aligned">{{ emp.empRate }}</td>
+      <td class="collapsing center aligned">{{ emp.prizeFlag == '0' ? '未中' : '已中' }}</td>
     </tr>
   </tbody>
 </table>
@@ -52,10 +47,10 @@
   <div class="header">导入员工数据失败</div>
   <div class="content">
     <div class="description">
-      <p>{{errorMessage}}}</p>
+      <p>{{errorMessage}}</p>
     </div>
   </div>
   <div class="actions">
-    <div class="ui positive right labeled button">确定</div>
+    <div class="ui ok blue button">确定</div>
   </div>
 </div>

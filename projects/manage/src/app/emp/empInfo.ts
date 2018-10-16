@@ -1,4 +1,5 @@
-export class empInfo {
+export class EmpInfo {
+    isSelected: boolean;
     empId: string;
     empCname: string;
     empFname: string;
