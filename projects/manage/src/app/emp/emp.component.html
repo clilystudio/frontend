@@ -1,6 +1,6 @@
 <div id="emptoolbar" class="ui large icon buttons">
   <button id="menu1" class="ui blue button"><i class="add user icon"></i></button>
-  <button id="menu2" class="ui blue button"><i class="remove user icon"></i></button>
+  <button id="menu2" class="ui blue button" (click)="removeEmp()"><i class="remove user icon"></i></button>
   <input type="file" (change)="uploadEmp($event)" class="inputfile" id="uploadEmpFile" accept=".csv" />
   <label id="menu3" for="uploadEmpFile" class="ui blue button"><i class="upload icon"></i></label>
 </div>
@@ -21,7 +21,7 @@
     <tr *ngFor="let emp of empList">
       <td>
         <div class="ui checkbox">
-          <input type="checkbox" ng-model="emp.isSelected" />
+          <input type="checkbox" [checked]="emp.isSelected" (change)="emp.isSelected = !emp.isSelected" />
           <label>{{ emp.empId }}</label>
         </div>
       </td>
@@ -44,7 +44,7 @@
 </div>
 <div id="errorTip" class="ui modal">
   <i class="close icon"></i>
-  <div class="header">导入员工数据失败</div>
+  <div class="header">{{errorTitle}}</div>
   <div class="content">
     <div class="description">
       <p>{{errorMessage}}</p>

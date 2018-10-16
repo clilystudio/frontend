@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment'
@@ -22,6 +22,7 @@ const httpOptions = {
 export class EmpService {
   uploadUrl = 'emp/upload';
   listUrl = 'emp/list';
+  deleteUrl = 'emp/delete';
 
   private handleError: HandleError;
 
@@ -38,5 +39,14 @@ export class EmpService {
     return this.http.get<EmpInfo[]>(url).pipe(
       catchError(this.handleError('getHeroes', []))
     );
+  }
+
+  public delete(empIds: string[]): Observable<ApiResult> {
+    const url = environment.api + this.deleteUrl;
+    const progress = new Subject<ApiResult>();
+    this.http.post<ApiResult>(url, empIds).subscribe(response => {
+      progress.next(response);
+    });
+    return progress.asObservable();
   }
 }
