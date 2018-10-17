@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let emp of empList">
+    <tr *ngFor="let emp of empList" (dblclick)="editEmp(emp.empId)">
       <td>
         <div class="ui checkbox">
           <input type="checkbox" [checked]="emp.isSelected" (change)="emp.isSelected = !emp.isSelected" />
@@ -54,25 +54,25 @@
     <div class="ui ok blue button">确定</div>
   </div>
 </div>
-<div id="newEmpWin" class="ui modal">
+<div id="editEmpWin" class="ui modal">
   <i class="close icon"></i>
-  <div class="header">添加员工</div>
+  <div class="header">{{ editFlag == 0 ? '添加员工' : '编辑员工'}}</div>
   <div class="content">
     <div class="ui input">
-      <input placeholder="员工编号" type="text" [value]="empNew.empId" (input)="empNew.empId = $event.target.value">
-      <input placeholder="员工姓名" type="text" [value]="empNew.empCname" (input)="empNew.empCname = $event.target.value">
-      <input placeholder="名" type="text" [value]="empNew.empFname" (input)="empNew.empFname = $event.target.value">
-      <input placeholder="姓" type="text" [value]="empNew.empLname" (input)="empNew.empLname = $event.target.value">
+      <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value" [readonly]="editFlag != 0">
+      <input placeholder="员工姓名" type="text" [value]="empInfo.empCname" (input)="empInfo.empCname = $event.target.value">
+      <input placeholder="名" type="text" [value]="empInfo.empFname" (input)="empInfo.empFname = $event.target.value">
+      <input placeholder="姓" type="text" [value]="empInfo.empLname" (input)="empInfo.empLname = $event.target.value">
     </div>
     <div class="ui input">
-      <input placeholder="部门编号" type="text" [value]="empNew.empDeptno" (input)="empNew.empDeptno = $event.target.value">
-      <input placeholder="部门名称" type="text" style="width: 32rem;" [value]="empNew.empDeptname" (input)="empNew.empDeptname = $event.target.value">
-      <input placeholder="倍率" type="text" style="text-align: right;" [value]="empNew.empRate" (input)="empNew.empRate = $event.target.value">
-      <input placeholder="中奖" type="hidden" [value]="empNew.prizeFlag" (input)="empNew.prizeFlag = $event.target.value">
+      <input placeholder="部门编号" type="text" [value]="empInfo.empDeptno" (input)="empInfo.empDeptno = $event.target.value">
+      <input placeholder="部门名称" type="text" style="width: 32rem;" [value]="empInfo.empDeptname" (input)="empInfo.empDeptname = $event.target.value">
+      <input placeholder="倍率" type="text" style="text-align: right;" [value]="empInfo.empRate" (input)="empInfo.empRate = $event.target.value">
+      <input placeholder="中奖" type="hidden" [value]="empInfo.prizeFlag" (input)="empInfo.prizeFlag = $event.target.value">
     </div>
 </div>
   <div class="actions">
     <div class="ui cancel red button">取消</div>
-    <div class="ui ok blue button" (click)="addEmp()">确定</div>
+    <div class="ui ok blue button" (click)="updateEmp()">确定</div>
   </div>
 </div>

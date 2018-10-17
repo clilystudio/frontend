@@ -15,10 +15,11 @@ export class EmpComponent implements OnInit {
   empList: EmpInfo[];
   errorTitle: string;
   errorMessage: string;
-  empNew: EmpInfo;
+  empInfo: EmpInfo;
+  editFlag: number;
 
   constructor(private empService: EmpService) {
-    this.empNew = new EmpInfo();
+    this.empInfo = new EmpInfo();
   }
 
   ngOnInit() {
@@ -91,12 +92,25 @@ export class EmpComponent implements OnInit {
   }
 
   newEmp() {
-    $('#newEmpWin').modal('show');
+    this.editFlag = 0;
+    this.empInfo = new EmpInfo();
+    $('#editEmpWin').modal('show');
   }
 
-  addEmp() {
-    console.log("###addEmp:" + JSON.stringify(this.empNew));
-    const progress = this.empService.add(this.empNew);
-    progress.subscribe(result => this.postFinish(result, '添加员工数据失败'));
+  editEmp(empId) {
+    console.log('###editEmp:' + empId);
+    this.editFlag = 1;    
+    this.empInfo = this.empList.find(e => e.empId == empId);
+    $('#editEmpWin').modal('show');
+  }
+
+  updateEmp() {
+    if (this.editFlag == 0) {
+      const progress = this.empService.add(this.empInfo);
+      progress.subscribe(result => this.postFinish(result, '添加员工数据失败'));
+    } else {
+      const progress = this.empService.edit(this.empInfo);
+      progress.subscribe(result => this.postFinish(result, '编辑员工数据失败'));
+    }
   }
 }

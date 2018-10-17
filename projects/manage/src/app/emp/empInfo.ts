@@ -10,6 +10,10 @@ export class EmpInfo {
     prizeFlag: number
 
     constructor() {
+        this.init();
+    }
+
+    public init() {
         this.isSelected = false;
         this.empId = "";
         this.empCname = "";
