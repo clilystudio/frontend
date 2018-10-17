@@ -88,7 +88,6 @@ export class EmpComponent implements OnInit {
     let delEmpIds = delEmps.map(e => e.empId);
     const progress = this.empService.delete(delEmpIds);
     progress.subscribe(result => this.postFinish(result, '删除员工数据失败'));
-    console.log("###removeEmp:" + length);
   }
 
   newEmp() {
@@ -97,5 +96,7 @@ export class EmpComponent implements OnInit {
 
   addEmp() {
     console.log("###addEmp:" + JSON.stringify(this.empNew));
+    const progress = this.empService.add(this.empNew);
+    progress.subscribe(result => this.postFinish(result, '添加员工数据失败'));
   }
 }

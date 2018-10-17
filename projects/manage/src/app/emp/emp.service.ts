@@ -23,6 +23,7 @@ export class EmpService {
   uploadUrl = 'emp/upload';
   listUrl = 'emp/list';
   deleteUrl = 'emp/delete';
+  addUrl = 'emp/add';
 
   private handleError: HandleError;
 
@@ -45,6 +46,15 @@ export class EmpService {
     const url = environment.api + this.deleteUrl;
     const progress = new Subject<ApiResult>();
     this.http.post<ApiResult>(url, empIds).subscribe(response => {
+      progress.next(response);
+    });
+    return progress.asObservable();
+  }
+
+  public add(empinfo: EmpInfo): Observable<ApiResult> {
+    const url = environment.api + this.addUrl;
+    const progress = new Subject<ApiResult>();
+    this.http.post<ApiResult>(url, empinfo).subscribe(response => {
       progress.next(response);
     });
     return progress.asObservable();
