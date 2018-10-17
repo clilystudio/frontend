@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { EmpComponent } from './emp/emp.component';
+import { PrizeComponent } from './prize/prize.component';
 
 declare var $: any; // for import jquery
 
@@ -11,6 +12,7 @@ declare var $: any; // for import jquery
 export class AppComponent implements AfterViewInit {
   title = '纬创抽奖后台管理';
   @ViewChild(EmpComponent) empTab;
+  @ViewChild(PrizeComponent) prizeTab;
 
   public ngAfterViewInit()
   {
@@ -23,7 +25,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   listPrize() {
-    console.log('### List Prize Info!');
+    this.prizeTab.listPrize();
   }
 
   listWinner() {

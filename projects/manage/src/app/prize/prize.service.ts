@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment'
 
 import { UploadService} from '../service/upload.service';
 import { HttpErrorHandler, HandleError } from '../service/http-error-handler.service';
-import { EmpInfo } from './empInfo';
+import { PrizeInfo } from './prizeInfo';
 import { ApiResult } from '../service/result';
 
 const httpOptions = {
@@ -19,48 +19,48 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class EmpService {
-  uploadUrl = 'emp/upload';
-  listUrl = 'emp/list';
-  deleteUrl = 'emp/delete';
-  addUrl = 'emp/add';
-  editUrl = 'emp/edit';
+export class PrizeService {
+  uploadUrl = 'prize/upload';
+  listUrl = 'prize/list';
+  deleteUrl = 'prize/delete';
+  addUrl = 'prize/add';
+  editUrl = 'prize/edit';
 
   private handleError: HandleError;
 
   constructor(private http: HttpClient, private uploadService: UploadService, private httpErrorHandler: HttpErrorHandler) { 
-    this.handleError = this.httpErrorHandler.createHandleError('EmpService');
+    this.handleError = this.httpErrorHandler.createHandleError('PrizeService');
   }
 
   public upload(file: File): Observable<ApiResult> {
     return this.uploadService.upload(file, this.uploadUrl);
   }
 
-  public list(): Observable<EmpInfo[]> {
+  public list(): Observable<PrizeInfo[]> {
     const url = environment.api + this.listUrl;
-    return this.http.get<EmpInfo[]>(url).pipe(
-      catchError(this.handleError('listEmps', []))
+    return this.http.get<PrizeInfo[]>(url).pipe(
+      catchError(this.handleError('listPrizes', []))
     );
   }
 
-  public delete(empIds: string[]): Observable<ApiResult> {
+  public delete(prizeIds: string[]): Observable<ApiResult> {
     const url = environment.api + this.deleteUrl;
-    return this.http.post<ApiResult>(url, empIds, httpOptions).pipe(
-      catchError(this.handleError<ApiResult>('deleteEmp'))
+    return this.http.post<ApiResult>(url, prizeIds, httpOptions).pipe(
+      catchError(this.handleError<ApiResult>('deletePrize'))
     );
   }
 
-  public add(empinfo: EmpInfo): Observable<ApiResult> {
+  public add(prizeInfo: PrizeInfo): Observable<ApiResult> {
     const url = environment.api + this.addUrl;
-    return this.http.post<ApiResult>(url, empinfo, httpOptions).pipe(
-      catchError(this.handleError<ApiResult>('addEmp'))
+    return this.http.post<ApiResult>(url, prizeInfo, httpOptions).pipe(
+      catchError(this.handleError<ApiResult>('addPrize'))
     );
   }
 
-  public edit(empinfo: EmpInfo): Observable<ApiResult> {
+  public edit(prizeInfo: PrizeInfo): Observable<ApiResult> {
     const url = environment.api + this.editUrl;
-    return this.http.post<ApiResult>(url, empinfo, httpOptions).pipe(
-      catchError(this.handleError<ApiResult>('editEmp'))
+    return this.http.post<ApiResult>(url, prizeInfo, httpOptions).pipe(
+      catchError(this.handleError<ApiResult>('editPrize'))
     );
   }
 }

@@ -23,20 +23,20 @@ export class EmpComponent implements OnInit {
   }
 
   ngOnInit() {
-    $("#menu1").popup({
+    $("#menu11").popup({
       variation: 'inverted',
       content  : '添加员工',
-      target   : $("#menu1")
+      target   : $("#menu11")
     });
-    $("#menu2").popup({
+    $("#menu12").popup({
       variation: 'inverted',
       content  : '删除员工',
-      target   : $("#menu2")
+      target   : $("#menu12")
     });
-    $("#menu3").popup({
+    $("#menu13").popup({
       variation: 'inverted',
       content  : '批量导入',
-      target   : $("#menu3")
+      target   : $("#menu13")
     });
   }
 
@@ -66,8 +66,6 @@ export class EmpComponent implements OnInit {
   listFinish(empList: EmpInfo[]) {    
     $('.ui.page.dimmer').dimmer('hide');
     this.empList = empList;
-    //this.empList.map(e => e.isSelected = true);
-    console.log('###listFinish:' + this.empList.length);
   }
 
   removeEmp() {
@@ -101,7 +99,13 @@ export class EmpComponent implements OnInit {
     console.log('###editEmp:' + empId);
     this.editFlag = 1;    
     this.empInfo = this.empList.find(e => e.empId == empId);
-    $('#editEmpWin').modal('show');
+    if (this.empInfo.prizeFlag != 0) {
+      this.errorTitle = '提示';
+      this.errorMessage = '已中奖的员工不能修改';
+      $('#errorTip').modal('show');
+    } else {
+      $('#editEmpWin').modal('show');
+    }
   }
 
   updateEmp() {
