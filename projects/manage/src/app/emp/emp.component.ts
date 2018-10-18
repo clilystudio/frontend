@@ -17,9 +17,15 @@ export class EmpComponent implements OnInit {
   errorMessage: string;
   empInfo: EmpInfo;
   editFlag: number;
+  deptList = [{"deptId":"ID010","deptName":"事业一部"},
+      {"deptId":"ID020","deptName":"事业二部"},
+      {"deptId":"ID030","deptName":"事业三部"},
+      {"deptId":"ID050","deptName":"业务发展支持部"},
+      {"deptId":"WD010","deptName":"行政管理部"}];
 
   constructor(private empService: EmpService) {
     this.empInfo = new EmpInfo();
+    //this.deptList = [{"deptId":"ID010","deptName":"事业一部"},{"deptId":"ID020","deptName":"事业二部"},{"deptId":"ID030","deptName":"事业三部"}];
   }
 
   ngOnInit() {
@@ -70,7 +76,7 @@ export class EmpComponent implements OnInit {
 
   listFinish(empList: EmpInfo[]) {    
     $('.ui.page.dimmer').dimmer('hide');
-    this.empList = empList;
+    this.empList = empList.sort((a, b) => a.empId.localeCompare(b.empId));
   }
 
   removeEmp() {
@@ -85,7 +91,7 @@ export class EmpComponent implements OnInit {
     let length2 = delEmps.filter(e => e.prizeFlag != 0).length;
     if (length2 > 0) {
       this.errorTitle = '提示';
-      this.errorMessage = '已中奖的员工不能删除，请重新选择';
+      this.errorMessage = '已中奖或已弃奖的员工不能删除，请重新选择';
       $('#errorTip').modal('show');
       return;
     }
@@ -114,6 +120,7 @@ export class EmpComponent implements OnInit {
   }
 
   updateEmp() {
+    this.empInfo.deptName = this.deptList.find(e => e.deptId == this.empInfo.deptId).deptName;
     if (this.editFlag == 0) {
       const progress = this.empService.add(this.empInfo);
       progress.subscribe(result => this.postFinish(result, '添加员工数据失败'));

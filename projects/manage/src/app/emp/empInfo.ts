@@ -1,11 +1,9 @@
 export class EmpInfo {
     isSelected: boolean;
     empId: string;
-    empCname: string;
-    empFname: string;
-    empLname: string;
-    empDeptno: string;
-    empDeptname: string;
+    empName: string;
+    deptId: string;
+    deptName: string;
     empRate: number;
     prizeFlag: number
 
@@ -16,11 +14,9 @@ export class EmpInfo {
     public init() {
         this.isSelected = false;
         this.empId = "";
-        this.empCname = "";
-        this.empFname = "";
-        this.empLname = "";
-        this.empDeptno = "";
-        this.empDeptname = "";
+        this.empName = "";
+        this.deptId = "";
+        this.deptName = "";
         this.empRate = 1;
         this.prizeFlag = 0;
     }

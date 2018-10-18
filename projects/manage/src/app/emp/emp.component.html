@@ -10,8 +10,6 @@
       <tr>
         <th class="collapsing center aligned">编号</th>
         <th class="collapsing center aligned">姓名</th>
-        <th class="collapsing center aligned">名</th>
-        <th class="collapsing center aligned">姓</th>
         <th class="collapsing center aligned">部门编号</th>
         <th class="center aligned">部门名称</th>
         <th class="collapsing center aligned">倍率</th>
@@ -26,13 +24,11 @@
             <label>{{ emp.empId }}</label>
           </div>
         </td>
-        <td>{{ emp.empCname }}</td>
-        <td>{{ emp.empFname }}</td>
-        <td>{{ emp.empLname }}</td>
-        <td>{{ emp.empDeptno }}</td>
-        <td>{{ emp.empDeptname }}</td>
+        <td>{{ emp.empName }}</td>
+        <td class="center aligned">{{ emp.deptId }}</td>
+        <td>{{ emp.deptName }}</td>
         <td class="right aligned">{{ emp.empRate }}</td>
-        <td class="center aligned">{{ emp.prizeFlag == '0' ? '未中' : '已中' }}</td>
+        <td class="center aligned">{{ emp.prizeFlag == '0' ? '未中' : (emp.prizeFlag == '1' ? '已中' : '弃奖') }}</td>
       </tr>
     </tbody>
   </table>
@@ -62,17 +58,13 @@
   <div class="content">
     <div class="ui input">
       <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value" [readonly]="editFlag != 0">
-      <input placeholder="员工姓名" type="text" [value]="empInfo.empCname" (input)="empInfo.empCname = $event.target.value">
-      <input placeholder="名" type="text" [value]="empInfo.empFname" (input)="empInfo.empFname = $event.target.value">
-      <input placeholder="姓" type="text" [value]="empInfo.empLname" (input)="empInfo.empLname = $event.target.value">
-    </div>
-    <div class="ui input">
-      <input placeholder="部门编号" type="text" [value]="empInfo.empDeptno" (input)="empInfo.empDeptno = $event.target.value">
-      <input placeholder="部门名称" type="text" style="width: 32rem;" [value]="empInfo.empDeptname" (input)="empInfo.empDeptname = $event.target.value">
+      <input placeholder="员工姓名" type="text" [value]="empInfo.empName" (input)="empInfo.empName = $event.target.value">
+      <select style="width: 16rem;" [value]="empInfo.deptId" (input)="empInfo.deptId = $event.target.value">
+        <option [value]="dept.deptId" *ngFor="let dept of deptList">{{dept.deptId + ' : ' + dept.deptName}}</option>
+      </select>
       <input placeholder="倍率" type="text" style="text-align: right;" [value]="empInfo.empRate" (input)="empInfo.empRate = $event.target.value">
-      <input placeholder="中奖" type="hidden" [value]="empInfo.prizeFlag" (input)="empInfo.prizeFlag = $event.target.value">
     </div>
-</div>
+  </div>
   <div class="actions">
     <div class="ui cancel red button">取消</div>
     <div class="ui ok blue button" (click)="updateEmp()">确定</div>
