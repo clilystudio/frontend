@@ -1,0 +1,20 @@
+<div class="ui large icon buttons">
+  <button id="menu31" class="ui blue button" (click)="getWinners()"><i class="download icon"></i></button>
+</div>
+<div class="ui right floated large icon buttons">
+  <button id="menu32" class="ui red button" (click)="resetWinner()"><i class="undo icon"></i></button>
+</div>
+<div class="tablist">
+</div>
+<div id="errorTip" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">{{errorTitle}}</div>
+  <div class="content">
+    <div class="description">
+      <p>{{errorMessage}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui ok blue button">确定</div>
+  </div>
+</div>

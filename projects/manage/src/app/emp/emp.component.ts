@@ -48,7 +48,12 @@ export class EmpComponent implements OnInit {
   }
 
   postFinish(result: ApiResult, title: string) {
-    if (result.code == "0") {
+    if (result.code == undefined) {
+      $('.ui.page.dimmer').dimmer('hide');
+      this.errorTitle = title;
+      this.errorMessage = "网络访问异常";
+      $('#errorTip').modal('show');
+    } else if (result.code == "0") {
       this.listEmp();
     } else {
       $('.ui.page.dimmer').dimmer('hide');
