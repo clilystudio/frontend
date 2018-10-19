@@ -3,9 +3,10 @@ export class PrizeInfo {
     prizeId: string;
     prizeName: string;
     prizeDesc: string;
+    prizeOrder: number;
     prizeNumber: number;
     prizeWinner: number;
-    empDeptno: string;
+    deptId: string;
     prizeMulti: number;
 
     constructor() {
@@ -17,9 +18,10 @@ export class PrizeInfo {
         this.prizeId = "";
         this.prizeName = "";
         this.prizeDesc = "";
+        this.prizeOrder = 0;
         this.prizeNumber = 1;
         this.prizeWinner = 0;
-        this.empDeptno = "";
+        this.deptId = "";
         this.prizeMulti = 0;
     }
 }

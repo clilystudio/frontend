@@ -5,8 +5,8 @@
   <label id="menu23" for="uploadPrizeFile" class="ui blue button"><i class="upload icon"></i></label>
 </div>
 <div class="ui right floated large icon buttons">
-  <button id="menu24" class="ui blue button" (click)="removePrize()"><i class="up arrow icon"></i></button>
-  <button id="menu25" class="ui blue button" (click)="removePrize()"><i class="down arrow icon"></i></button>
+  <button id="menu24" class="ui blue button" (click)="setOrder(0)"><i class="up arrow icon"></i></button>
+  <button id="menu25" class="ui blue button" (click)="setOrder(1)"><i class="down arrow icon"></i></button>
 </div>
 <div class="tablist">
     <table class="ui selectable celled table" style="width: 100%; margin-top: 0em">
@@ -33,7 +33,7 @@
           <td>{{ prize.prizeDesc }}</td>
           <td class="right aligned">{{ prize.prizeNumber }}</td>
           <td class="right aligned">{{ prize.prizeWinner }}</td>
-          <td>{{ prize.empDeptno }}</td>
+          <td>{{ prize.deptId }}</td>
           <td class="center aligned">{{ prize.prizeMulti == '1' ? '允许' : '不许' }}</td>
         </tr>
       </tbody>
@@ -69,11 +69,13 @@
       </div>
       <div class="ui input">
         <input placeholder="数量" type="text" style="text-align: right;" [value]="prizeInfo.prizeNumber" (input)="prizeInfo.prizeNumber = $event.target.value">
-        <input placeholder="限定部门" type="text" [value]="prizeInfo.empDeptno" (input)="prizeInfo.empDeptno = $event.target.value">
+        <select style="width: 13.4rem;" [value]="prizeInfo.deptId" (input)="prizeInfo.deptId = $event.target.value">
+          <option [value]="dept.deptId" *ngFor="let dept of deptList">{{dept.deptId == ''? dept.deptName : dept.deptId + ' : ' + dept.deptName}}</option>
+        </select>
         <div class="ui checkbox" style="margin-top: 0.6rem; margin-left: 0.6rem;">
           <input type="checkbox" [checked]="prizeInfo.prizeMulti == 1" (change)="prizeInfo.prizeMulti = prizeInfo.prizeMulti == 0 ? 1 : 0">
-          <label>允许重复中奖</label>
-        </div>
+        <label>允许重复中奖</label>
+      </div>
         <input placeholder="中奖数" type="hidden" [value]="prizeInfo.prizeWinner" (input)="prizeInfo.prizeWinner = $event.target.value">
       </div>
     </div>

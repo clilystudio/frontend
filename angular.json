@@ -253,6 +253,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref" : "/control/",
+            "deployUrl": "/control/",
             "outputPath": "dist/control",
             "index": "projects/control/src/control.html",
             "main": "projects/control/src/main.ts",

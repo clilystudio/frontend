@@ -60,7 +60,7 @@
       <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value" [readonly]="editFlag != 0">
       <input placeholder="员工姓名" type="text" [value]="empInfo.empName" (input)="empInfo.empName = $event.target.value">
       <select style="width: 16rem;" [value]="empInfo.deptId" (input)="empInfo.deptId = $event.target.value">
-        <option [value]="dept.deptId" *ngFor="let dept of deptList">{{dept.deptId + ' : ' + dept.deptName}}</option>
+        <option [value]="dept.deptId" *ngFor="let dept of deptList">{{dept.deptId == ''? dept.deptName : dept.deptId + ' : ' + dept.deptName}}</option>
       </select>
       <input placeholder="倍率" type="text" style="text-align: right;" [value]="empInfo.empRate" (input)="empInfo.empRate = $event.target.value">
     </div>

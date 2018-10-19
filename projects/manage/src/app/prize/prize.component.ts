@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PrizeService } from './prize.service';
 import { PrizeInfo} from './prizeInfo';
 import { ApiResult } from '../service/result';
+import { Dept } from '../service/dept';
 
 declare var $: any;
 
@@ -17,6 +18,7 @@ export class PrizeComponent implements OnInit {
   errorMessage: string;
   prizeInfo: PrizeInfo;
   editFlag: number;
+  deptList = Dept.deptList;
 
   constructor(private prizeService: PrizeService) {
     this.prizeInfo = new PrizeInfo();
@@ -125,5 +127,39 @@ export class PrizeComponent implements OnInit {
       const progress = this.prizeService.edit(this.prizeInfo);
       progress.subscribe(result => this.postFinish(result, '编辑奖项数据失败'));
     }
+  }
+
+  setOrder(direct: number) {
+    let setPrizes = this.prizeList.filter(e => e.isSelected == true);
+    let length = setPrizes.length;
+    if (length == 0) {
+      this.errorTitle = '提示';
+      this.errorMessage = '请选择要调整顺序的奖项';
+      $('#errorTip').modal('show');
+      return;
+    }
+    let order = 1000;
+    let subOrder = 0;
+    this.prizeList.forEach(prize => {
+      if (prize.isSelected) {
+        subOrder += 10;
+        if (direct == 0) {
+          prize.prizeOrder = order - 1000 + subOrder;
+        } else {
+          prize.prizeOrder = order + 1000 + subOrder;
+        }
+      } else {
+        order += 1000;
+        prize.prizeOrder = order;
+      }
+    });
+    let orderNew = 1000;
+    this.prizeList.sort((a, b) => a.prizeOrder - b.prizeOrder)
+      .forEach(prize => {
+        prize.prizeOrder = orderNew;
+        orderNew += 1000;
+        const progress = this.prizeService.edit(prize);
+        progress.subscribe(result => console.log("###" + JSON.stringify(result)));
+    });
   }
 }

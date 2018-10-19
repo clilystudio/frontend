@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmpService } from './emp.service';
 import { EmpInfo} from './empInfo';
 import { ApiResult } from '../service/result';
+import { Dept } from '../service/dept';
 
 declare var $: any;
 
@@ -17,11 +18,7 @@ export class EmpComponent implements OnInit {
   errorMessage: string;
   empInfo: EmpInfo;
   editFlag: number;
-  deptList = [{"deptId":"ID010","deptName":"事业一部"},
-      {"deptId":"ID020","deptName":"事业二部"},
-      {"deptId":"ID030","deptName":"事业三部"},
-      {"deptId":"ID050","deptName":"业务发展支持部"},
-      {"deptId":"WD010","deptName":"行政管理部"}];
+  deptList = Dept.deptList;
 
   constructor(private empService: EmpService) {
     this.empInfo = new EmpInfo();
