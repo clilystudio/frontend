@@ -1,0 +1,14 @@
+<div class="content">
+  <ons-card class="lottocard">
+    <div class="title" style="text-align: center;">准备抽取{{ lottoInfo.prizeName }}</div>
+    <div class="title" style="text-align: center;">抽取人数: {{ lottoInfo.person }}</div>
+    <div class="content">
+      <div style="text-align: center; margin: 0rem">
+        <input type="range" min="1" [max]="lottoInfo.max" class="range" [value]="lottoInfo.person" (input)="lottoInfo.person = $event.target.value" style="width: 100%; height: 3rem;">
+      </div>
+    </div>
+  </ons-card>
+  <ons-fab position="center bottom" (click)="onClick()" class="startbutton">
+    <ons-icon icon="ion-android-hand"></ons-icon>
+  </ons-fab>
+</div>

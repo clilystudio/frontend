@@ -52,7 +52,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "manage:build"
+            "browserTarget": "manage:build",
+            "host": "0.0.0.0"
           },
           "configurations": {
             "production": {
@@ -292,7 +293,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "control:build"
+            "browserTarget": "control:build",
+            "host": "0.0.0.0"
           },
           "configurations": {
             "production": {
