@@ -5,9 +5,9 @@ import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment'
 
-import { HttpErrorHandler, HandleError } from '../service/http-error-handler.service';
+import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 import { PrizeInfo } from './prizeInfo';
-import { ApiResult } from '../service/result';
+import { ApiResult } from './result';
 
 const httpOptions = {
   headers: new HttpHeaders({
