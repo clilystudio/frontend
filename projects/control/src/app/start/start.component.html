@@ -8,7 +8,10 @@
       </div>
     </div>
   </ons-card>
-  <ons-fab position="center bottom" (click)="onClick()" class="startbutton">
+  <ons-fab id="controlButton" position="center bottom" (click)="startLotto()" class="startbutton">
+    <ons-icon icon="ion-android-hand"></ons-icon>
+  </ons-fab>
+  <ons-fab position="center bottom" (click)="stopLotto()" class="stopbutton">
     <ons-icon icon="ion-android-hand"></ons-icon>
   </ons-fab>
 </div>

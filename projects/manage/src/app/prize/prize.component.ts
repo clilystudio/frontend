@@ -94,7 +94,7 @@ export class PrizeComponent implements OnInit {
       $('#errorTip').modal('show');
       return;
     }
-    let length2 = delPrizes.filter(e => e.prizeWinner > 0).length;
+    let length2 = delPrizes.filter(e => e.prizeWinner > 0 || e.prizeStatus != 0).length;
     if (length2 > 0) {
       this.errorTitle = '提示';
       this.errorMessage = '已抽奖的的奖项不能删除，请重新选择';

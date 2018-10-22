@@ -32,4 +32,22 @@
     cursor: default;
     pointer-events: none;
 }
+.stopbutton {
+    width: 10rem;
+    height: 10rem;
+    font-size: 6rem;
+    margin-left: -15rem;
+    line-height: 8rem;
+    background: #ff4400;
+    color: white;
+}
+.stopbutton:active {
+    box-shadow: 0 3px 6 rgba(0, 0, 0, .12);
+    background-color: #ff4400;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 6 rgba(0, 0, 0, .12);
+}
+.stopbutton:focus {
+    outline: 0;
+}
   

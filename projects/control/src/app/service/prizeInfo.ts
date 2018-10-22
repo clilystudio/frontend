@@ -1,5 +1,4 @@
 export class PrizeInfo {
-    isSelected: boolean;
     prizeId: string;
     prizeName: string;
     prizeDesc: string;
@@ -16,7 +15,6 @@ export class PrizeInfo {
     }
 
     public init() {
-        this.isSelected = false;
         this.prizeId = "";
         this.prizeName = "";
         this.prizeDesc = "";
