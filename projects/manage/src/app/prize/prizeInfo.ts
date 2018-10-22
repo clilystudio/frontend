@@ -25,7 +25,7 @@ export class PrizeInfo {
         this.prizeWinner = 0;
         this.deptId = "";
         this.prizeMulti = 0;
-        this.prizeStatus = 0;
+        this.prizeStatus = 1;
         this.prizePerson = 1;
     }
 }

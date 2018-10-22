@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { StartComponent } from './start/start.component';
-import { WinnerComponent } from './winner/winner.component';
+import { ListComponent} from './list/list.component';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,5 @@ import { WinnerComponent } from './winner/winner.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'control';
-  start = StartComponent;
-  winner = WinnerComponent;
+  startPage = ListComponent;
 }
