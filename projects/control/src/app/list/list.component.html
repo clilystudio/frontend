@@ -3,15 +3,10 @@
 </ons-toolbar>
 <div class="content">
   <ons-list>
-    <ons-list-item *ngFor="let prize of prizeList">
+    <ons-list-item *ngFor="let prize of prizeList" (click)="gotoPrize(prize.prizeId)">
       <div class="center">
         <span class="list-item__title">{{ prize.prizeName }}</span>
         <span class="list-item__subtitle">{{ prize.prizeDesc }}</span>
-      </div>
-      <div class="right">
-        <span *ngIf="!isRunning || prize.prizeStatus == 0">{{ prize.prizeStatus == 0 ? '抽选中' : (prize.prizeStatus == 1 ? '待抽选' : '已抽选') }}</span>
-        <ons-icon icon="ion-android-arrow-forward" class="list-item__icon" *ngIf="!isRunning || prize.prizeStatus == 0"></ons-icon>
-        <ons-icon icon="ion-trophy" class="list-item__icon" *ngIf="!isRunning || prize.prizeStatus == 0"></ons-icon>
       </div>
       <div class="right">
         <span *ngIf="!isRunning || prize.prizeStatus == 0 || prize.prizeStatus == 2">{{ prize.prizeStatus == 0 ? '抽选中' : (prize.prizeStatus == 1 ? '待抽选' : '已抽选') }}</span>
