@@ -14,11 +14,17 @@ export class EmpInfo {
   // 员工姓名
   empName = '';
 
+  // 员工性别
+  empSex = '';
+
   // 部门ID
   deptId = '';
 
   // 部门名称
   deptName = '';
+
+  // 科室ID
+  branchId = '';
 
   // 中奖权值
   empRate = 1;

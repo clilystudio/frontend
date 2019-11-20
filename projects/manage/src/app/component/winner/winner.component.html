@@ -6,21 +6,21 @@
 <div class="tablist">
   <table class="ui selectable celled table">
     <thead>
-      <tr>
-        <th class="collapsing center aligned">奖项编号</th>
-        <th class="collapsing">奖项名称</th>
-        <th>奖项描述</th>
-        <th class="collapsing center aligned">员工ID</th>
-        <th class="collapsing">员工姓名</th>
+      <tr class="gridheader">
+        <th class="center aligned prizeid">奖项ID</th>
+        <th class="center aligned prizename">奖项名称</th>
+        <th class="center aligned prizedesc">奖项描述</th>
+        <th class="center aligned empid">员工ID</th>
+        <th class="center aligned empname">员工姓名</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let w of winnerList" (dblclick)="doRemove(w.prizeId, w.empId)">
-        <td class="center aligned">{{w.prizeId}}</td>
-        <td>{{w.prizeName}}</td>
-        <td>{{w.prizeDesc}}</td>
-        <td class="center aligned">{{w.empId}}</td>
-        <td>{{w.empName}}</td>
+        <td class="center aligned prizeid">{{w.prizeId}}</td>
+        <td class="prizename">{{w.prizeName}}</td>
+        <td class="prizedesc">{{w.prizeDesc}}</td>
+        <td class="center aligned empid">{{w.empId}}</td>
+        <td class="empname">{{w.empName}}</td>
       </tr>
     </tbody>
   </table>

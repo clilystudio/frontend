@@ -13,13 +13,13 @@ declare var $: any;
 export class AppComponent implements AfterViewInit {
 
   // 员工信息组件
-  @ViewChild(EmpComponent) empTab: EmpComponent;
+  @ViewChild(EmpComponent, {static: true}) empTab: EmpComponent;
 
   // 奖项信息组件
-  @ViewChild(PrizeComponent) prizeTab: PrizeComponent;
+  @ViewChild(PrizeComponent, {static: true}) prizeTab: PrizeComponent;
 
   // 中奖信息组件
-  @ViewChild(WinnerComponent) winnerTab: WinnerComponent;
+  @ViewChild(WinnerComponent, {static: true}) winnerTab: WinnerComponent;
 
   public ngAfterViewInit() {
     $('.menu .item').tab();

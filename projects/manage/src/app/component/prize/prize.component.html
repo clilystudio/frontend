@@ -13,32 +13,32 @@
 <div class="tablist">
   <table class="ui selectable celled table">
     <thead>
-      <tr>
-        <th class="collapsing center aligned">编号</th>
-        <th class="center aligned">名称</th>
-        <th class="center aligned">描述</th>
-        <th class="collapsing center aligned">数量</th>
-        <th class="collapsing center aligned">中奖数</th>
+      <tr class="gridheader">
+        <th class="center aligned prizeid">奖项ID</th>
+        <th class="center aligned prizename">奖项名称</th>
+        <th class="center aligned prizedesc">奖项描述</th>
+        <th class="center aligned prizenumber">奖项数</th>
+        <th class="center aligned prizewinner">中奖数</th>
         <!-- <th class="collapsing center aligned">限定部门</th>
         <th class="collapsing center aligned">允许重复中奖</th> -->
-        <th class="collapsing center aligned">抽选状态</th>
+        <th class="center aligned prizestatus">抽选状态</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let p of prizeList" (dblclick)="editPrize(p.prizeId)">
-        <td>
+        <td class="prizeid">
           <div class="ui checkbox">
             <input type="checkbox" [checked]="p.selected" (change)="p.selected = !p.selected" />
             <label>{{p.prizeId}}</label>
           </div>
         </td>
-        <td>{{p.prizeName}}</td>
-        <td>{{p.prizeDesc}}</td>
-        <td class="right aligned">{{p.prizeNumber}}</td>
-        <td class="right aligned">{{p.prizeWinner}}</td>
+        <td class="prizename">{{p.prizeName}}</td>
+        <td class="prizedesc">{{p.prizeDesc}}</td>
+        <td class="right aligned prizenumber">{{p.prizeNumber}}</td>
+        <td class="right aligned prizewinner">{{p.prizeWinner}}</td>
         <!-- <td>{{p.deptId}}</td> -->
         <!-- <td class="center aligned">{{p.prizeMulti == C.PrizeMulti.YES ? '允许' : '不许'}}</td> -->
-        <td class="center aligned">{{C.PrizeStatusName[p.prizeStatus]}}</td>
+        <td class="center aligned prizestatus">{{C.PrizeStatusName[p.prizeStatus]}}</td>
       </tr>
     </tbody>
   </table>

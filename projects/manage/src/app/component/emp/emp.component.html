@@ -9,28 +9,31 @@
 <div class="tablist">
   <table class="ui selectable celled table">
     <thead>
-      <tr>
-        <th class="collapsing center aligned">编号</th>
-        <th class="collapsing center aligned">姓名</th>
-        <th class="collapsing center aligned">部门编号</th>
-        <th class="center aligned">部门名称</th>
-        <!-- <th class="collapsing center aligned">加权</th> -->
-        <th class="collapsing center aligned">中奖</th>
+      <tr class="gridheader">
+        <th class="center aligned empid">员工ID</th>
+        <th class="center aligned empname">员工姓名</th>
+        <th class="center aligned empsex">性别</th>
+        <th class="center aligned deptid">部门编号</th>
+        <th class="center aligned deptname">部门名称</th>
+        <!-- <th class="center aligned emprate">加权</th> -->
+        <th class="center aligned prizeflag">中奖</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let e of empList" (dblclick)="editEmp(e.empId)">
-        <td>
+        <td class="center aligned empid">
           <div class="ui checkbox">
             <input type="checkbox" [checked]="e.selected" (change)="e.selected = !e.selected" />
             <label>{{e.empId}}</label>
           </div>
         </td>
-        <td>{{e.empName}}</td>
-        <td class="center aligned">{{e.deptId}}</td>
-        <td>{{e.deptName}}</td>
-        <!-- <td class="right aligned">{{e.empRate}}</td> -->
-        <td class="center aligned">{{e.prizeFlag === C.PrizeFlag.NONE ? '未中' : (e.prizeFlag === C.PrizeFlag.WIN ?
+        <td class="empname">{{e.empName}}</td>
+        <td class="center aligned empsex">{{e.empSex === C.SexFlag.MALE ? '男' : (e.empSex === C.SexFlag.FEMALE ?
+          '女' : '不祥') }}</td>
+        <td class="center aligned deptid">{{e.deptId}}</td>
+        <td class="deptname">{{e.deptName}}</td>
+        <!-- <td class="right aligned emprate">{{e.empRate}}</td> -->
+        <td class="center aligned prizeflag">{{e.prizeFlag === C.PrizeFlag.NONE ? '未中' : (e.prizeFlag === C.PrizeFlag.WIN ?
           '已中' : '弃奖') }}</td>
       </tr>
     </tbody>

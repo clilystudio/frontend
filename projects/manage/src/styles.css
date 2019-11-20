@@ -91,3 +91,46 @@ h3.item.header {
   bottom: 0rem;
   right: 0rem;
 }
+
+tr.gridheader {
+  background: #aaaaaa;
+}
+th.empid, td.empid {
+  width: 12rem;
+}
+
+th.empname, td.empname {
+  width: 10rem;
+}
+
+th.empsex, td.empsex {
+  width: 6rem;
+}
+
+th.deptid, td.deptid {
+  width: 10rem;
+}
+
+th.prizeflag, td.prizeflag {
+  width: 6rem;
+}
+
+th.prizeid, td.prizeid {
+  width: 10rem;
+}
+
+th.prizename, td.prizename {
+  width: 20rem;
+}
+
+th.prizenumber, td.prizenumber {
+  width: 10rem;
+}
+
+th.prizewinner, td.prizewinner {
+  width: 10rem;
+}
+
+th.prizestatus, td.prizestatus {
+  width: 10rem;
+}
