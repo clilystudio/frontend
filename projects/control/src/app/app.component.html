@@ -1,1 +1,7 @@
-<ons-navigator disable-auto-styling [page]="startPage"></ons-navigator>
+<ons-tabbar position="bottom" disable-auto-styling>
+  <div class="tabbar__content"></div>
+  <div class="tabbar">
+    <ons-tab label="抽奖控制" icon="ion-ios-cog" [page]="tabLotto" active></ons-tab>
+    <ons-tab label="中奖结果" icon="ion-trophy" [page]="tabWinner"></ons-tab>
+  </div>
+</ons-tabbar>

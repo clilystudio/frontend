@@ -1,0 +1,84 @@
+<!-- 工具条 -->
+<div class="ui large icon buttons">
+  <button id="menu21" class="ui blue button" (click)="newPrize()"><i class="add plus icon"></i></button>
+  <button id="menu22" class="ui blue button" (click)="removePrize()"><i class="remove minus icon"></i></button>
+  <input type="file" (change)="uploadPrize($event)" class="inputfile" id="uploadPrizeFile" accept=".csv">
+  <label id="menu23" for="uploadPrizeFile" class="ui blue button"><i class="upload icon"></i></label>
+</div>
+<div class="ui right floated large icon buttons">
+  <button id="menu24" class="ui blue button" (click)="setOrder(C.Direct.UP)"><i class="up arrow icon"></i></button>
+  <button id="menu25" class="ui blue button" (click)="setOrder(C.Direct.DOWN)"><i class="down arrow icon"></i></button>
+</div>
+<!-- 明细一览 -->
+<div class="tablist">
+  <table class="ui selectable celled table">
+    <thead>
+      <tr>
+        <th class="collapsing center aligned">编号</th>
+        <th class="center aligned">名称</th>
+        <th class="center aligned">描述</th>
+        <th class="collapsing center aligned">数量</th>
+        <th class="collapsing center aligned">中奖数</th>
+        <!-- <th class="collapsing center aligned">限定部门</th>
+        <th class="collapsing center aligned">允许重复中奖</th> -->
+        <th class="collapsing center aligned">抽选状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of prizeList" (dblclick)="editPrize(p.prizeId)">
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" [checked]="p.selected" (change)="p.selected = !p.selected" />
+            <label>{{p.prizeId}}</label>
+          </div>
+        </td>
+        <td>{{p.prizeName}}</td>
+        <td>{{p.prizeDesc}}</td>
+        <td class="right aligned">{{p.prizeNumber}}</td>
+        <td class="right aligned">{{p.prizeWinner}}</td>
+        <!-- <td>{{p.deptId}}</td> -->
+        <!-- <td class="center aligned">{{p.prizeMulti == C.PrizeMulti.YES ? '允许' : '不许'}}</td> -->
+        <td class="center aligned">{{C.PrizeStatusName[p.prizeStatus]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- 遮罩 -->
+<div id="dimmerPrize" class="ui page dimmer">
+  <div class="content">
+    <div class="center">
+      <div class="ui text loader">数据导入中</div>
+    </div>
+  </div>
+</div>
+<!-- 对话框 -->
+<div id="dialogPrize" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">{{dialogTitle}}</div>
+  <div class="content">
+    <div class="description">
+      <p>{{dialogMessage}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui ok blue button">确定</div>
+  </div>
+</div>
+<!-- 编辑界面 -->
+<div id="editPrizeWin" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">{{editFlag == C.EditFlag.ADD ? '添加奖项' : '编辑奖项'}}</div>
+  <div class="content">
+    <div class="ui input">
+      <input placeholder="奖项编号" type="text" [value]="prizeInfo.prizeId" (input)="prizeInfo.prizeId = $event.target.value"
+        [readonly]="editFlag != C.EditFlag.ADD">
+      <input placeholder="奖项名称" type="text" [value]="prizeInfo.prizeName" (input)="prizeInfo.prizeName = $event.target.value">
+      <input placeholder="描述" type="text" [value]="prizeInfo.prizeDesc" (input)="prizeInfo.prizeDesc = $event.target.value">
+      <input placeholder="数量" type="text" class="right aligned" [value]="prizeInfo.prizeNumber" (input)="prizeInfo.prizeNumber = $event.target.value">
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui cancel red button">取消</div>
+    <div class="ui ok blue button" (click)="updatePrize()">确定</div>
+  </div>
+</div>

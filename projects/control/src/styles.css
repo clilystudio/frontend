@@ -1,7 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
-/* .toolbar {
-    background: #0076ff;
+/* 提示信息 */
+ons-card.lottocard {
+  background: #0076ff;
+  color: white;
+  text-align: center;
 }
-.toolbar__title {
-    color: white;
-} */
+/* 提示信息 */
+ons-card.noprize {
+  background: #ff7600;
+  color: white;
+  text-align: center;
+}
+/* 抽选数量选择 */
+ons-range.range {
+  width: 90%;
+}
+/* 控制按钮 */
+ons-fab.control-button {
+  width: 14rem;
+  height: 14rem;
+  font-size: 12rem;
+  margin-left: -7rem;
+  line-height: 10rem;
+  color: #fff;
+  bottom: 3rem;
+}
+/* 控制按钮选中时 */
+ons-fab.control-button:focus {
+  outline: 0;
+}
+/* 控制按钮按下时 */
+ons-fab.control-button:active {
+  box-shadow: 0 3px 6 rgba(0, 0, 0, .12);
+  transition: all 0.1s ease;
+}
+/* 启动按钮 */
+ons-fab.control-button.start {
+  background: #0076ff;
+}
+/* 停止按钮 */
+ons-fab.control-button.pause {
+  background: #ff4400;
+}
+/* 继续按钮 */
+ons-fab.control-button.replay {
+  background: #0ac53c;
+}
+/* Tabbar字体颜色（默认有BUG） */
+:checked+.tabbar__button {
+  color: #0076ff;
+}
+/* 警告框确认按钮 */
+ons-alert-dialog-button.confirm {
+  color: red;
+}

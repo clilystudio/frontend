@@ -1,8 +1,9 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { EmpComponent } from './emp/emp.component';
-import { PrizeComponent } from './prize/prize.component';
+import { EmpComponent } from './component/emp/emp.component';
+import { PrizeComponent } from './component/prize/prize.component';
+import { WinnerComponent } from './component/winner/winner.component';
 
-declare var $: any; // for import jquery
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -10,25 +11,30 @@ declare var $: any; // for import jquery
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  title = '纬创抽奖后台管理';
-  @ViewChild(EmpComponent) empTab;
-  @ViewChild(PrizeComponent) prizeTab;
 
-  public ngAfterViewInit()
-  {
+  // 员工信息组件
+  @ViewChild(EmpComponent) empTab: EmpComponent;
+
+  // 奖项信息组件
+  @ViewChild(PrizeComponent) prizeTab: PrizeComponent;
+
+  // 中奖信息组件
+  @ViewChild(WinnerComponent) winnerTab: WinnerComponent;
+
+  public ngAfterViewInit() {
     $('.menu .item').tab();
-    this.switchtoEmp();
+    this.gotoEmp();
   }
 
-  switchtoEmp() {
+  gotoEmp() {
     this.empTab.listEmp();
   }
 
-  listPrize() {
+  gotoPrize() {
     this.prizeTab.listPrize();
   }
 
-  listWinner() {
-    console.log('### List Winner Info!');
+  gotoWinner() {
+    this.winnerTab.listWinner();
   }
 }

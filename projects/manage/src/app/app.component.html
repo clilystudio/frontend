@@ -1,17 +1,17 @@
-<div class="ui content" style="padding: 0rem 1rem 1rem 1rem;">
+<div class="ui content">
   <div class="ui pointing secondary menu blue">
-    <h3 class="item header" style="padding-left: 0rem;">纬创抽奖后台管理</h3>
-    <a class="item active" data-tab="tabEmp" (click)="switchtoEmp()"><i class="user icon"></i>员工管理</a>
-    <a class="item" data-tab="tabPrize" (click)="listPrize()"><i class="gift icon"></i>奖项管理</a>
-    <a class="item" data-tab="tabWinner" (click)="listWinner()"><i class="trophy icon"></i>中奖名单</a>
+    <h3 class="item header">纬创抽奖后台管理</h3>
+    <a class="item active" data-tab="tabEmp" (click)="gotoEmp()"><i class="user icon"></i>员工管理</a>
+    <a class="item" data-tab="tabPrize" (click)="gotoPrize()"><i class="gift icon"></i>奖项管理</a>
+    <a class="item" data-tab="tabWinner" (click)="gotoWinner()"><i class="trophy icon"></i>中奖名单</a>
   </div>
   <div class="ui active tab segment managetab" data-tab="tabEmp">
     <app-emp class="managecontent"></app-emp>
   </div>
   <div class="ui tab segment managetab" data-tab="tabPrize">
-    <app-prize class="managecontent"></app-prize>    
+    <app-prize class="managecontent"></app-prize>
   </div>
   <div class="ui tab segment managetab" data-tab="tabWinner">
-    <app-winner class="managecontent"></app-winner>    
-  </div>  
+    <app-winner class="managecontent"></app-winner>
+  </div>
 </div>

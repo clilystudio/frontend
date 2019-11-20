@@ -1,1 +1,113 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+}
+body {
+  background-image: url(projects/common/assets/images/lottoback.jpg);
+  margin: 0;
+  overflow: hidden;
+}
+/* 员工 */
+.element {
+  width: 180px;
+  height: 120px;
+  box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+  border: 1px solid rgba(127, 255, 255, 0.25);
+  text-align: center;
+  cursor: default;
+  background-color: rgba(0, 127, 127, 0.25);
+}
+.element:hover {
+  box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+  border: 1px solid rgba(127, 255, 255, 0.75);
+}
+/* 员工姓名 */
+.element .name {
+  position: absolute;
+  top: 15px;
+  left: 0px;
+  right: 0px;
+  font-size: 36px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
+}
+/* 员工详细 */
+.element .detail {
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 0px;
+  font-size: 12px;
+  color: rgba(127, 255, 255, 0.75);
+}
+/* 中奖员工 */
+.element.winned {
+  background-color: rgba(235, 63, 47, 0.25);
+}
+/* 此次中奖员工 */
+.element.winner {
+  background-color: rgba(235, 63, 47, 1);
+}
+/* 此次中奖员工 */
+.element.giveup {
+  background-color: rgba(128, 128, 128, 0.25);
+}
+/* 奖项 */
+.prize {
+  width: 800px;
+  height: 600px;
+  box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+  border: 1px solid rgba(109, 184, 184, 0.25);
+  text-align: center;
+  cursor: default;
+  background-color: rgba(235, 63, 47, 0.25);
+  display: none;
+}
+/* 奖项描述 */
+.prize .desc {
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
+}
+/* 奖项照片 */
+.prize .photo {
+  position: absolute;
+  top: 15px;
+  left: 0px;
+  right: 0px;
+  height: 500px;
+}
+/** 为了图片引用路径使用 */
+.cash {
+  background-image: url(projects/common/assets/images/cash.png);
+}
+.EX01 {
+  background-image: url(projects/common/assets/images/EX01.png);
+}
+.EX02 {
+  background-image: url(projects/common/assets/images/EX02.png);
+}
+.LV10 {
+  background-image: url(projects/common/assets/images/LV10.png);
+}
+.LV11 {
+  background-image: url(projects/common/assets/images/LV11.png);
+}
+.LV12 {
+  background-image: url(projects/common/assets/images/LV12.png);
+}
+.LV13 {
+  background-image: url(projects/common/assets/images/LV13.png);
+}
+.LV14 {
+  background-image: url(projects/common/assets/images/LV14.png);
+}
+.qrcode {
+  background-image: url(projects/common/assets/images/qrcode.png);
+}

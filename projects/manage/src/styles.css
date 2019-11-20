@@ -1,18 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+/* 文件选择 */
 .inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
-.tablist {
-	position: absolute;
-    top: 3.2rem;
-    left: 0rem;
-    bottom: 0rem;
-    right: 0rem;
-    overflow: auto; 
-    border: 0rem;
-} 
+/* 一览列表 */
+div.tablist {
+  height: 90vh;
+  overflow: auto;
+}
+/* 输入框 */
+.ui.input input {
+  width: 16rem;
+}
+/* 输入提示 */
+.ui.input input::placeholder {
+  color: #4444cc;
+}
+/* 一览表格 */
+table.table {
+  width: 100%;
+  margin: 0em;
+}
+/* 行选择 */
+table.table tr {
+  cursor: pointer;
+}
+/* 标签 */
+td label {
+  cursor: pointer;
+}
+/* 下拉列表（宽) */
+select.large {
+  width: 16rem;
+}
+/* 下拉列表（中） */
+select.middle {
+  width: 13.4rem;
+}
+/* 工具条 */
+.toolbar {
+  position: fixed;
+  top: 5rem;
+  left: 1rem;
+  width: auto;
+}
+/* 工具按钮 */
+.ui.buttons {
+  position: static;
+}
+/* 输入框（宽） */
+.ui.input input.doublewidth {
+  width: 32rem;
+}
+/* 选择框 */
+div.ui.checkbox {
+  margin-top: 0.6rem;
+  margin-left: 0.6rem;
+}
+/* 右对齐输入框 */
+.ui.input input.right.aligned {
+  text-align: right;
+}
+
+div.ui.content {
+  padding: 0rem 1rem 1rem 1rem;
+}
+
+h3.item.header {
+  padding-left: 0rem;
+}
+
+.ui.segment.managetab {
+  position: absolute;
+  top: 3rem;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  padding: 0px;
+  border: 0rem;
+}
+
+.managecontent {
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  right: 0rem;
+}

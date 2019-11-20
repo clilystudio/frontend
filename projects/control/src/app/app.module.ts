@@ -1,31 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
-import { PrizeInfo} from './service/prizeInfo';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { OnsenModule, CUSTOM_ELEMENTS_SCHEMA } from 'ngx-onsenui';
-import { StartComponent } from './start/start.component';
-import { WinnerComponent } from './winner/winner.component';
-import { ListComponent } from './list/list.component';
-import { LottoComponent } from './lotto/lotto.component';
+import { LottoComponent } from './component/lotto/lotto.component';
+import { WinnerComponent } from './component/winner/winner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartComponent,
-    WinnerComponent,
-    ListComponent,
-    LottoComponent
+    LottoComponent,
+    WinnerComponent
   ],
   imports: [
-    BrowserModule,
     OnsenModule,
     HttpClientModule
   ],
-  providers: [PrizeInfo],
+  providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ListComponent, LottoComponent],
+  entryComponents: [LottoComponent, WinnerComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

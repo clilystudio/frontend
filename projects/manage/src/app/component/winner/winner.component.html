@@ -1,0 +1,62 @@
+<!-- 工具条 -->
+<div class="ui large icon buttons">
+  <button id="menu31" class="ui blue button" (click)="doRefresh()"><i class="bullhorn icon"></i></button>
+  <button id="menu32" class="ui red button" (click)="doReset()"><i class="undo icon"></i></button>
+</div>
+<div class="tablist">
+  <table class="ui selectable celled table">
+    <thead>
+      <tr>
+        <th class="collapsing center aligned">奖项编号</th>
+        <th class="collapsing">奖项名称</th>
+        <th>奖项描述</th>
+        <th class="collapsing center aligned">员工ID</th>
+        <th class="collapsing">员工姓名</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let w of winnerList" (dblclick)="doRemove(w.prizeId, w.empId)">
+        <td class="center aligned">{{w.prizeId}}</td>
+        <td>{{w.prizeName}}</td>
+        <td>{{w.prizeDesc}}</td>
+        <td class="center aligned">{{w.empId}}</td>
+        <td>{{w.empName}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- 遮罩 -->
+<div id="dimmerWinner" class="ui page dimmer">
+  <div class="content">
+    <div class="center">
+      <div class="ui text loader">重置中奖</div>
+    </div>
+  </div>
+</div>
+<!-- 对话框 -->
+<div id="dialogWinner" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">{{dialogTitle}}</div>
+  <div class="content">
+    <div class="description">
+      <p>{{dialogMessage}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui ok blue button">确定</div>
+  </div>
+</div>
+<!-- 对话框 -->
+<div id="dialogConfirm" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">确定</div>
+  <div class="content">
+    <div class="description">
+      <p>{{confireMessage}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">取消</div>
+    <div class="ui ok red button" (click)="confirm()">确定</div>
+  </div>
+</div>

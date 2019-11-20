@@ -1,0 +1,40 @@
+<!-- 标题栏 -->
+<ons-toolbar disable-auto-styling>
+  <div class="center">{{title}}</div>
+  <div class="right">
+    <ons-toolbar-button (click)="initControl()">
+      <ons-icon icon="ion-android-sync"></ons-icon>
+    </ons-toolbar-button>
+  </div>
+</ons-toolbar>
+<!-- 奖项信息 -->
+<ng-container *ngIf="prizeInfo && prizeInfo.prizeId">
+  <ons-card class="lottocard" *ngIf="prizeInfo.prizeStatus != C.PrizeStatus.STOPPED">
+    <div class="title">{{'奖品：' + prizeInfo.prizeDesc}}<br>抽取人数: {{prizePerson + '/' + maxPerson}}</div>
+    <ons-range class="range" min="1" [attr.max]="maxPerson" [(value)]="prizePerson"></ons-range>
+  </ons-card>
+  <!-- 奖项信息 -->
+  <ons-card class="lottocard" *ngIf="prizeInfo.prizeStatus === C.PrizeStatus.STOPPED">
+    <div class="title">{{'奖品：' + prizeInfo.prizeDesc}}<br>抽取完成</div>
+  </ons-card>
+  <!-- 启动按钮 -->
+  <ons-fab #startButton position="center bottom" class="control-button start" (click)="startLotto()" [disabled]="sending"
+    *ngIf="prizeInfo.prizeStatus === C.PrizeStatus.READIED || prizeInfo.prizeStatus === C.PrizeStatus.STARTTING">
+    <ons-icon icon="ion-ios-play"></ons-icon>
+  </ons-fab>
+  <!-- 停止按钮 -->
+  <ons-fab #stopButton position="center bottom" class="control-button pause" (click)="stopLotto()" [disabled]="sending"
+    *ngIf="prizeInfo.prizeStatus === C.PrizeStatus.STARTTED || prizeInfo.prizeStatus === C.PrizeStatus.STOPPING">
+    <ons-icon icon="ion-pause"></ons-icon>
+  </ons-fab>
+  <!-- 继续按钮 -->
+  <ons-fab #stopButton position="center bottom" class="control-button replay" (click)="initControl()" [disabled]="sending"
+    *ngIf="prizeInfo.prizeStatus === C.PrizeStatus.STOPPED">
+    <ons-icon icon="ion-skip-forward"></ons-icon>
+  </ons-fab>
+</ng-container>
+<ng-container *ngIf="prizeInfo && !prizeInfo.prizeId">
+  <ons-card class="noprize">
+    <div class="title">没有可抽选的奖项了</div>
+  </ons-card>
+</ng-container>

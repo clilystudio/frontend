@@ -1,0 +1,79 @@
+<!-- 工具条 -->
+<div class="ui large icon buttons toolbar">
+  <button id="menu11" class="ui blue button" (click)="newEmp()"><i class="add user icon"></i></button>
+  <button id="menu12" class="ui blue button" (click)="removeEmp()"><i class="remove user icon"></i></button>
+  <input type="file" (change)="uploadEmp($event)" class="inputfile" id="uploadEmpFile" accept=".csv">
+  <label id="menu13" for="uploadEmpFile" class="ui blue button"><i class="upload icon"></i></label>
+</div>
+<!-- 明细一览 -->
+<div class="tablist">
+  <table class="ui selectable celled table">
+    <thead>
+      <tr>
+        <th class="collapsing center aligned">编号</th>
+        <th class="collapsing center aligned">姓名</th>
+        <th class="collapsing center aligned">部门编号</th>
+        <th class="center aligned">部门名称</th>
+        <!-- <th class="collapsing center aligned">加权</th> -->
+        <th class="collapsing center aligned">中奖</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of empList" (dblclick)="editEmp(e.empId)">
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" [checked]="e.selected" (change)="e.selected = !e.selected" />
+            <label>{{e.empId}}</label>
+          </div>
+        </td>
+        <td>{{e.empName}}</td>
+        <td class="center aligned">{{e.deptId}}</td>
+        <td>{{e.deptName}}</td>
+        <!-- <td class="right aligned">{{e.empRate}}</td> -->
+        <td class="center aligned">{{e.prizeFlag === C.PrizeFlag.NONE ? '未中' : (e.prizeFlag === C.PrizeFlag.WIN ?
+          '已中' : '弃奖') }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- 遮罩 -->
+<div id="dimmerEmp" class="ui page dimmer">
+  <div class="content">
+    <div class="center">
+      <div class="ui text loader">数据导入中</div>
+    </div>
+  </div>
+</div>
+<!-- 对话框 -->
+<div id="dialogEmp" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">{{dialogTitle}}</div>
+  <div class="content">
+    <div class="description">
+      <p>{{dialogMessage}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui ok blue button">确定</div>
+  </div>
+</div>
+<!-- 编辑界面 -->
+<div id="editwinEmp" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">{{editFlag == C.EditFlag.ADD ? '添加员工' : '编辑员工'}}</div>
+  <div class="content">
+    <div class="ui input">
+      <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value"
+        [readonly]="editFlag != 0">
+      <input placeholder="员工姓名" type="text" [value]="empInfo.empName" (input)="empInfo.empName = $event.target.value">
+      <select class="large" [value]="empInfo.deptId" (input)="empInfo.deptId = $event.target.value">
+        <option *ngFor="let d of C.DeptList" [value]="d.deptId">{{d.idName}}</option>
+      </select>
+      <input placeholder="倍率" type="text" class="right aligned" [value]="empInfo.empRate" (input)="empInfo.empRate = $event.target.value">
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui cancel red button">取消</div>
+    <div class="ui ok blue button" (click)="updateEmp()">确定</div>
+  </div>
+</div>
