@@ -12,7 +12,6 @@ export const Const = {
 
   // 部门列表，因为数据固定，直接在前端定义而不通过后台从数据库中取得了
   DeptList: [
-    { deptId: '', deptName: '不限定部门', idName: '不限定部门' },
     { deptId: 'IC1000', deptName: '第一事业单位', idName: 'IC1000 : 第一事业单位' },
     { deptId: 'FC10C0', deptName: '共享服务中心', idName: 'FC10C0 : 共享服务中心' },
     { deptId: 'FC10C1', deptName: '人资服务课', idName: 'FC10C1 : 人资服务课' },
@@ -163,5 +162,8 @@ export const Const = {
   STATUS_BROADCAST: '/status/broadcast',
 
   /** 自定义事件 */
-  RELOAD_WINNER: 'reloadwinner'
+  RELOAD_WINNER: 'reloadwinner',
+
+  /** 不限定抽奖组 */
+  UNLIMIT_GROUP: '000000'
 };

@@ -570,51 +570,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const workYear = parseInt(empInfo.empId.substr(2, 2), 10);
     if (empInfo.prizeFlag === Const.PrizeFlag.NONE) {
       // 未中奖状态，计算中奖权值
-      if (this.prizeInfo.prizeId.startsWith('EX') || this.prizeInfo.prizeId.startsWith('CS9')) {
-        // 特别奖和预定现金奖，指定入职年限前参与抽奖
-        if (workYear <= Const.WORK_YEAR_LIMIT) {
-          return empInfo.empRate;
-        } else {
-          return 0;
-        }
-      } if (this.prizeInfo.prizeId.startsWith('LV')) {
-        // 实物奖，指定入职年限后参与抽奖
-        if (workYear <= Const.WORK_YEAR_LIMIT) {
-          return 0;
-        } else {
-          return empInfo.empRate;
-        }
-      } else if (this.prizeInfo.prizeId.startsWith('CS')) {
-        const money = +this.prizeInfo.deptId;
-        if (!isNaN(money)) {
-          // 可以确定奖金数额时
-          if (money >= 5000) {
-            // 大额奖金
-            if (workYear <= 9) {
-              return empInfo.empRate;
-            } else {
-              return 0;
-            }
-          } else if (money >= 3000) {
-            // 中额奖金
-            if (workYear <= 9) {
-              return empInfo.empRate * 8;
-            } else if (workYear <= Const.WORK_YEAR_LIMIT) {
-              return empInfo.empRate;
-            } else {
-              return 0;
-            }
-          }
-        }
-        // 临时现金奖，无法确定奖金或小额奖金时，全部参与抽奖，调整权值
-        if (workYear <= 14) {
-          return empInfo.empRate * 8;
-        } else if (workYear <= 16) {
-          return empInfo.empRate * 6;
-        } else {
-          return empInfo.empRate;
-        }
-      }
+      return empInfo.empRate;
     } else {
       // 已中奖或已弃奖，不再参与抽奖
       return 0;

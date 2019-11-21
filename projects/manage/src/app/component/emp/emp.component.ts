@@ -62,6 +62,7 @@ export class EmpComponent implements OnInit {
     });
     this.dimmer = $('#dimmerEmp');
     this.dialog = $('#dialogEmp');
+    $('.ui.radio.checkbox').checkbox();
   }
 
   /**

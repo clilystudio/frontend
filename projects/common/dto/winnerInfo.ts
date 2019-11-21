@@ -15,6 +15,9 @@ export class WinnerInfo {
   // 员工ID
   empId = '';
 
+  // 抽奖组ID
+  groupId = '';
+
   // 员工姓名
   empName = '';
 

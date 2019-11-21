@@ -92,15 +92,16 @@ h3.item.header {
   right: 0rem;
 }
 
-tr.gridheader {
-  background: #aaaaaa;
+.ui.table thead tr.gridheader th {
+  background-color: #cccccc;
 }
+
 th.empid, td.empid {
-  width: 12rem;
+  width: 8rem;
 }
 
 th.empname, td.empname {
-  width: 10rem;
+  width: 8rem;
 }
 
 th.empsex, td.empsex {
@@ -116,7 +117,7 @@ th.prizeflag, td.prizeflag {
 }
 
 th.prizeid, td.prizeid {
-  width: 10rem;
+  width: 8rem;
 }
 
 th.prizename, td.prizename {
@@ -124,13 +125,13 @@ th.prizename, td.prizename {
 }
 
 th.prizenumber, td.prizenumber {
-  width: 10rem;
+  width: 8rem;
 }
 
 th.prizewinner, td.prizewinner {
-  width: 10rem;
+  width: 8rem;
 }
 
 th.prizestatus, td.prizestatus {
-  width: 10rem;
+  width: 8rem;
 }
