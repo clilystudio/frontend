@@ -97,7 +97,7 @@ h3.item.header {
 }
 
 th.empid, td.empid {
-  width: 8rem;
+  width: 10rem;
 }
 
 th.empname, td.empname {
@@ -108,8 +108,12 @@ th.empsex, td.empsex {
   width: 6rem;
 }
 
+th.groupid, td.groupid {
+  width: 8rem;
+}
+
 th.deptid, td.deptid {
-  width: 10rem;
+  width: 8rem;
 }
 
 th.prizeflag, td.prizeflag {

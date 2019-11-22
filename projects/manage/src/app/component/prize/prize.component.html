@@ -19,6 +19,7 @@
         <th class="center aligned prizedesc">奖项描述</th>
         <th class="center aligned prizenumber">奖项数</th>
         <th class="center aligned prizewinner">中奖数</th>
+        <th class="center aligned groupid">限定分组</th>
         <!-- <th class="collapsing center aligned">限定部门</th>
         <th class="collapsing center aligned">允许重复中奖</th> -->
         <th class="center aligned prizestatus">抽选状态</th>
@@ -36,6 +37,7 @@
         <td class="prizedesc">{{p.prizeDesc}}</td>
         <td class="right aligned prizenumber">{{p.prizeNumber}}</td>
         <td class="right aligned prizewinner">{{p.prizeWinner}}</td>
+        <td class="center aligned groupid">{{p.groupId}}</td>
         <!-- <td>{{p.deptId}}</td> -->
         <!-- <td class="center aligned">{{p.prizeMulti == C.PrizeMulti.YES ? '允许' : '不许'}}</td> -->
         <td class="center aligned prizestatus">{{C.PrizeStatusName[p.prizeStatus]}}</td>
@@ -70,7 +72,7 @@
   <div class="header">{{editFlag == C.EditFlag.ADD ? '添加奖项' : '编辑奖项'}}</div>
   <div class="content">
     <div class="ui input">
-      <input placeholder="奖项编号" type="text" [value]="prizeInfo.prizeId" (input)="prizeInfo.prizeId = $event.target.value"
+      <input placeholder="奖项ID" type="text" [value]="prizeInfo.prizeId" (input)="prizeInfo.prizeId = $event.target.value"
         [readonly]="editFlag != C.EditFlag.ADD">
       <input placeholder="奖项名称" type="text" [value]="prizeInfo.prizeName" (input)="prizeInfo.prizeName = $event.target.value">
       <input placeholder="描述" type="text" [value]="prizeInfo.prizeDesc" (input)="prizeInfo.prizeDesc = $event.target.value">

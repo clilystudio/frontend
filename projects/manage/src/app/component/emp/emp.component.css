@@ -6,3 +6,6 @@ input.right {
   text-align: right;
 }
 
+div.ui.checkbox.empid {
+  margin: 0rem;
+}

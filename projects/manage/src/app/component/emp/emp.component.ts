@@ -152,6 +152,24 @@ export class EmpComponent implements OnInit {
       this.dialogMessage = '已中奖的员工不能修改';
       this.dialog.modal('show');
     } else {
+      if (this.empInfo.empSex === 'M') {
+        $('.ui.radio.checkbox.male').checkbox('set checked');
+        $('.ui.radio.checkbox.female').checkbox('set unchecked');
+      } else {
+        $('.ui.radio.checkbox.female').checkbox('set checked');
+        $('.ui.radio.checkbox.male').checkbox('set unchecked');
+      }
+      const that = this;
+      $('.ui.radio.checkbox.male').checkbox({
+        onChange() {
+          that.empInfo.empSex = $('.ui.radio.checkbox.male').checkbox('is checked') ? 'M' : 'F';
+        }
+      });
+      $('.ui.radio.checkbox.female').checkbox({
+        onChange() {
+          that.empInfo.empSex = $('.ui.radio.checkbox.female').checkbox('is checked') ? 'F' : 'M';
+        }
+      });
       $('#editwinEmp').modal('show');
     }
   }

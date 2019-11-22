@@ -13,6 +13,7 @@
         <th class="center aligned empid">员工ID</th>
         <th class="center aligned empname">员工姓名</th>
         <th class="center aligned empsex">性别</th>
+        <th class="center aligned groupid">抽奖组ID</th>
         <th class="center aligned deptid">部门编号</th>
         <th class="center aligned deptname">部门名称</th>
         <!-- <th class="center aligned emprate">加权</th> -->
@@ -22,7 +23,7 @@
     <tbody>
       <tr *ngFor="let e of empList" (dblclick)="editEmp(e.empId)">
         <td class="center aligned empid">
-          <div class="ui checkbox">
+          <div class="ui checkbox empid">
             <input type="checkbox" [checked]="e.selected" (change)="e.selected = !e.selected" />
             <label>{{e.empId}}</label>
           </div>
@@ -30,6 +31,7 @@
         <td class="empname">{{e.empName}}</td>
         <td class="center aligned empsex">{{e.empSex === C.SexFlag.MALE ? '男' : (e.empSex === C.SexFlag.FEMALE ?
           '女' : '不详') }}</td>
+        <td class="center aligned groupid">{{e.groupId}}</td>
         <td class="center aligned deptid">{{e.deptId}}</td>
         <td class="deptname">{{e.deptName}}</td>
         <!-- <td class="right aligned emprate">{{e.empRate}}</td> -->
@@ -66,30 +68,30 @@
   <h3 class="ui dividing header">{{editFlag == C.EditFlag.ADD ? '添加员工' : '编辑员工'}}</h3>
   <div class="ui form content">
     <div class="fields">
-      <div class="two wide field">
-        <label>抽奖组ID</label>
-        <input placeholder="抽奖组ID" type="text" [value]="empInfo.groupId" (input)="empInfo.groupId = $event.target.value">
-      </div>
       <div class="three wide field">
           <label>员工编号</label>
           <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value" [readonly]="editFlag != 0">
       </div>
-      <div class="three wide field">
+      <div class="two wide field">
         <label>员工姓名</label>
         <input placeholder="员工姓名" type="text" [value]="empInfo.empName" (input)="empInfo.empName = $event.target.value">
       </div>
       <div class="two wide field">
         <label>员工性别</label>
         <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="empSex" checked="true" class="hidden">
+          <div class="ui radio checkbox male">
+            <input type="radio" name="empSex" class="hidden">
             <label>男</label>
           </div>
-          <div class="ui radio checkbox">
-            <input type="radio" name="empSex" checked="" class="hidden">
+          <div class="ui radio checkbox female">
+            <input type="radio" name="empSex" class="hidden">
             <label>女</label>
           </div>
         </div>
+      </div>
+      <div class="two wide field">
+          <label>抽奖组ID</label>
+          <input placeholder="抽奖组ID" type="text" [value]="empInfo.groupId" (input)="empInfo.groupId = $event.target.value">
       </div>
       <div class="five wide field">
         <label>所在部门</label>
@@ -98,8 +100,8 @@
         </select>
       </div>
       <div class="two wide field">
-        <label>中奖权值</label>
-        <input class="right" placeholder="中奖权值" type="text" [value]="empInfo.empRate" (input)="empInfo.empRate = $event.target.value">
+        <label>权值</label>
+        <input class="right" placeholder="权值" type="text" [value]="empInfo.empRate" (input)="empInfo.empRate = $event.target.value">
       </div>
     </div>
   </div>
