@@ -85,6 +85,12 @@ export const Const = {
   // 奖项状态名称
   PrizeStatusName: ['待抽选', '待抽选', '抽选中', '抽选中', '已抽选', '已抽选'],
 
+  /** 奖项类型 */
+  PrizeType: {
+    CASH: '0',
+    GOOD: '1',
+  },
+
   /** 重复中奖 */
   PrizeMulti: {
     NO: '0',
@@ -165,5 +171,21 @@ export const Const = {
   RELOAD_WINNER: 'reloadwinner',
 
   /** 不限定抽奖组 */
-  UNLIMIT_GROUP: '000000'
+  UNLIMIT_GROUP: '000000',
+
+  /** 确认标识 */
+  CamaraConfig: {
+    INIT_RATE: 1.9,
+    ZOOM_NONE: 1.0,
+    ZOOM_OUT: 1.10,
+    ZOOM_IN: 0.97,
+    INIT_WIDTH: 8000,
+    INIT_HEIGHT: 2000
+  },
+
+  /** 分隔符 */
+  Delimiter: {
+    GROUP: ';',
+    ITEM: '#'
+  }
 };

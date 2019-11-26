@@ -16,10 +16,10 @@
       <tr class="gridheader">
         <th class="center aligned prizeid">奖项ID</th>
         <th class="center aligned prizename">奖项名称</th>
+        <th class="center aligned prizetype">奖项类型</th>
         <th class="center aligned prizedesc">奖项描述</th>
         <th class="center aligned prizenumber">奖项数</th>
         <th class="center aligned prizewinner">中奖数</th>
-        <th class="center aligned groupid">限定分组</th>
         <!-- <th class="collapsing center aligned">限定部门</th>
         <th class="collapsing center aligned">允许重复中奖</th> -->
         <th class="center aligned prizestatus">抽选状态</th>
@@ -28,16 +28,16 @@
     <tbody>
       <tr *ngFor="let p of prizeList" (dblclick)="editPrize(p.prizeId)">
         <td class="prizeid">
-          <div class="ui checkbox">
+          <div class="ui checkbox prizeid">
             <input type="checkbox" [checked]="p.selected" (change)="p.selected = !p.selected" />
             <label>{{p.prizeId}}</label>
           </div>
         </td>
         <td class="prizename">{{p.prizeName}}</td>
+        <td class="center aligned prizetype">{{p.prizeType == C.PrizeType.CASH ? '现金' : '实物'}}</td>
         <td class="prizedesc">{{p.prizeDesc}}</td>
         <td class="right aligned prizenumber">{{p.prizeNumber}}</td>
         <td class="right aligned prizewinner">{{p.prizeWinner}}</td>
-        <td class="center aligned groupid">{{p.groupId}}</td>
         <!-- <td>{{p.deptId}}</td> -->
         <!-- <td class="center aligned">{{p.prizeMulti == C.PrizeMulti.YES ? '允许' : '不许'}}</td> -->
         <td class="center aligned prizestatus">{{C.PrizeStatusName[p.prizeStatus]}}</td>
@@ -69,16 +69,44 @@
 <!-- 编辑界面 -->
 <div id="editPrizeWin" class="ui modal">
   <i class="close icon"></i>
-  <div class="header">{{editFlag == C.EditFlag.ADD ? '添加奖项' : '编辑奖项'}}</div>
-  <div class="content">
-    <div class="ui input">
-      <input placeholder="奖项ID" type="text" [value]="prizeInfo.prizeId" (input)="prizeInfo.prizeId = $event.target.value"
-        [readonly]="editFlag != C.EditFlag.ADD">
-      <input placeholder="奖项名称" type="text" [value]="prizeInfo.prizeName" (input)="prizeInfo.prizeName = $event.target.value">
-      <input placeholder="描述" type="text" [value]="prizeInfo.prizeDesc" (input)="prizeInfo.prizeDesc = $event.target.value">
-      <input placeholder="数量" type="text" class="right aligned" [value]="prizeInfo.prizeNumber" (input)="prizeInfo.prizeNumber = $event.target.value">
+  <h3 class="ui dividing header">{{editFlag == C.EditFlag.ADD ? '添加奖项' : '编辑奖项'}}</h3>
+  <div class="ui form content">
+    <div class="fields">
+      <div class="two wide field">
+          <label>奖项ID</label>
+          <input placeholder="奖项ID" type="text" [value]="prizeInfo.prizeId" (input)="prizeInfo.prizeId = $event.target.value" [readonly]="editFlag != C.EditFlag.ADD">
+      </div>
+      <div class="eight wide field">
+        <label>奖项名称</label>
+        <input placeholder="奖项名称" type="text" [value]="prizeInfo.prizeName" (input)="prizeInfo.prizeName = $event.target.value">
+      </div>
+      <div class="four wide field">
+        <label>奖项类型</label>
+        <div class="field">
+          <div class="ui radio checkbox cash">
+            <input type="radio" name="prizeType" class="hidden">
+            <label>现金</label>
+          </div>
+          <div class="ui radio checkbox good">
+            <input type="radio" name="prizeType" class="hidden">
+            <label>实物</label>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+    <div class="fields">
+      <div class="sixteen wide field">
+          <label>抽奖组限定</label>
+          <input placeholder="抽奖组限定" type="text" [value]="prizeInfo.groupLimit" (input)="prizeInfo.groupLimit = $event.target.value">
+      </div>
+    </div>
+    <div class="fields">
+        <div class="sixteen wide field">
+            <label>奖项描述</label>
+            <input placeholder="抽奖组ID" type="text" [value]="prizeInfo.prizeDesc" (input)="prizeInfo.prizeDesc = $event.target.value">
+        </div>
+      </div>
+    </div>
   <div class="actions">
     <div class="ui cancel red button">取消</div>
     <div class="ui ok blue button" (click)="updatePrize()">确定</div>

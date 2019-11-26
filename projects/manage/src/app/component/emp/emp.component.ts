@@ -138,6 +138,7 @@ export class EmpComponent implements OnInit {
   newEmp() {
     this.editFlag = Const.EditFlag.ADD;
     this.empInfo = new EmpInfo();
+    this.setCheckBox();
     $('#editwinEmp').modal('show');
   }
 
@@ -152,26 +153,33 @@ export class EmpComponent implements OnInit {
       this.dialogMessage = '已中奖的员工不能修改';
       this.dialog.modal('show');
     } else {
-      if (this.empInfo.empSex === 'M') {
-        $('.ui.radio.checkbox.male').checkbox('set checked');
-        $('.ui.radio.checkbox.female').checkbox('set unchecked');
-      } else {
-        $('.ui.radio.checkbox.female').checkbox('set checked');
-        $('.ui.radio.checkbox.male').checkbox('set unchecked');
-      }
-      const that = this;
-      $('.ui.radio.checkbox.male').checkbox({
-        onChange() {
-          that.empInfo.empSex = $('.ui.radio.checkbox.male').checkbox('is checked') ? 'M' : 'F';
-        }
-      });
-      $('.ui.radio.checkbox.female').checkbox({
-        onChange() {
-          that.empInfo.empSex = $('.ui.radio.checkbox.female').checkbox('is checked') ? 'F' : 'M';
-        }
-      });
+      this.setCheckBox();
       $('#editwinEmp').modal('show');
     }
+  }
+
+  /**
+   * 设置单选框
+   */
+  setCheckBox() {
+    if (this.empInfo.empSex === Const.SexFlag.MALE) {
+      $('.ui.radio.checkbox.male').checkbox('set checked');
+      $('.ui.radio.checkbox.female').checkbox('set unchecked');
+    } else {
+      $('.ui.radio.checkbox.female').checkbox('set checked');
+      $('.ui.radio.checkbox.male').checkbox('set unchecked');
+    }
+    const that = this;
+    $('.ui.radio.checkbox.male').checkbox({
+      onChange() {
+        that.empInfo.empSex = $('.ui.radio.checkbox.male').checkbox('is checked') ? Const.SexFlag.MALE : Const.SexFlag.FEMALE;
+      }
+    });
+    $('.ui.radio.checkbox.female').checkbox({
+      onChange() {
+        that.empInfo.empSex = $('.ui.radio.checkbox.female').checkbox('is checked') ? Const.SexFlag.FEMALE : Const.SexFlag.MALE;
+      }
+    });
   }
 
   /**

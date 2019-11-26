@@ -70,7 +70,7 @@
     <div class="fields">
       <div class="three wide field">
           <label>员工编号</label>
-          <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value" [readonly]="editFlag != 0">
+          <input placeholder="员工编号" type="text" [value]="empInfo.empId" (input)="empInfo.empId = $event.target.value" [readonly]="editFlag != C.EditFlag.ADD">
       </div>
       <div class="two wide field">
         <label>员工姓名</label>

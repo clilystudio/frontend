@@ -18,7 +18,7 @@ export class EmpInfo {
   empName = '';
 
   // 员工性别
-  empSex = '';
+  empSex = Const.SexFlag.FEMALE;
 
   // 入职日期
   empDate = '';

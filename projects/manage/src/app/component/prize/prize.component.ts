@@ -147,6 +147,7 @@ export class PrizeComponent implements OnInit {
   newPrize() {
     this.editFlag = Const.EditFlag.ADD;
     this.prizeInfo = new PrizeInfo();
+    this.setCheckBox();
     $('#editPrizeWin').modal('show');
   }
 
@@ -156,7 +157,32 @@ export class PrizeComponent implements OnInit {
   editPrize(prizeId: string) {
     this.editFlag = Const.EditFlag.EDIT;
     this.prizeInfo = this.prizeList.find(e => e.prizeId === prizeId);
+    this.setCheckBox();
     $('#editPrizeWin').modal('show');
+  }
+
+  /**
+   * 设置单选框
+   */
+  setCheckBox() {
+    if (this.prizeInfo.prizeType === Const.PrizeType.CASH) {
+      $('.ui.radio.checkbox.cash').checkbox('set checked');
+      $('.ui.radio.checkbox.good').checkbox('set unchecked');
+    } else {
+      $('.ui.radio.checkbox.good').checkbox('set checked');
+      $('.ui.radio.checkbox.cash').checkbox('set unchecked');
+    }
+    const that = this;
+    $('.ui.radio.checkbox.cash').checkbox({
+      onChange() {
+        that.prizeInfo.prizeType = $('.ui.radio.checkbox.cash').checkbox('is checked') ? Const.PrizeType.CASH : Const.PrizeType.GOOD;
+      }
+    });
+    $('.ui.radio.checkbox.good').checkbox({
+      onChange() {
+        that.prizeInfo.prizeType = $('.ui.radio.checkbox.good').checkbox('is checked') ? Const.PrizeType.GOOD : Const.PrizeType.CASH;
+      }
+    });
   }
 
   /**

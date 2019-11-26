@@ -8,9 +8,6 @@ export class ControlInfo {
   // 奖项ID
   prizeId = '';
 
-  // 抽奖组ID
-  groupId = '';
-
   // 奖项状态
   prizeStatus = Const.PrizeStatus.READYING;
 

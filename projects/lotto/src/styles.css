@@ -28,7 +28,6 @@ body {
   right: 0px;
   font-size: 36px;
   font-weight: bold;
-  color: rgba(255, 255, 255, 0.75);
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
 }
 /* 员工详细 */
@@ -38,7 +37,14 @@ body {
   left: 0px;
   right: 0px;
   font-size: 12px;
+}
+/* 男性员工字体颜色 */
+.element.male {
   color: rgba(127, 255, 255, 0.75);
+}
+/* 女性员工字体颜色 */
+.element.female {
+  color: rgba(255, 255, 127, 0.75);
 }
 /* 中奖员工 */
 .element.winned {

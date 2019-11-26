@@ -64,6 +64,7 @@ export class WinnerComponent implements OnInit {
     this.dimmer = $('#dimmerWinner');
     this.dialog = $('#dialogWinner');
     this.confirmDialog = $('#dialogConfirm');
+    this.dialogMessage = '网络异常，请联系管理员';
   }
 
   public listWinner() {
