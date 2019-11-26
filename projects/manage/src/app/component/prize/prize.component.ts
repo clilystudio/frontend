@@ -3,6 +3,7 @@ import { PrizeService } from '../../../../../common/service/prize.service';
 import { Const } from '../../../../../common/const';
 import { PrizeInfo } from '../../../../../common/dto/prizeInfo';
 import { ApiResult } from '../../../../../common/dto/api-result';
+import { PrizeGroup } from 'projects/common/dto/prizeGroup';
 
 declare var $: any;
 
@@ -157,8 +158,28 @@ export class PrizeComponent implements OnInit {
   editPrize(prizeId: string) {
     this.editFlag = Const.EditFlag.EDIT;
     this.prizeInfo = this.prizeList.find(e => e.prizeId === prizeId);
+    this.getPrizeGroup();
     this.setCheckBox();
     $('#editPrizeWin').modal('show');
+  }
+
+  /**
+   * 取得奖项分组信息
+   */
+  private getPrizeGroup(): void {
+    this.prizeInfo.prizeGroups = [];
+    const groups = this.prizeInfo.groupLimit.split(Const.Delimiter.GROUP);
+    groups.forEach(g => {
+      const items = g.split(Const.Delimiter.ITEM);
+      const prizeGroup = new PrizeGroup();
+      prizeGroup.groupId = items[0];
+      prizeGroup.prizeNumber = parseInt(items[1], 10);
+      prizeGroup.prizeWinner = parseInt(items[2], 10);
+      this.prizeInfo.prizeGroups.push(prizeGroup);
+    });
+    this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
+      return g.prizeNumber > g.prizeWinner;
+    });
   }
 
   /**
