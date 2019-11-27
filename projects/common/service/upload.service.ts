@@ -23,7 +23,7 @@ export class UploadService {
     const url = environment.api + apiUrl;
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
-    formData.append('clearFlag', 'true');
+    formData.append('clearAll', 'true');
     const progress = new Subject<ApiResult>();
     this.http.post<ApiResult>(url, formData).subscribe(response => {
       progress.next(response);

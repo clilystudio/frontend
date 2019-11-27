@@ -6,7 +6,6 @@ import { PrizeInfo } from '../../../../../common/dto/prizeInfo';
 import { ControlInfo } from '../../../../../common/dto/controlInfo';
 import { environment } from '../../../../../common/environments/environment';
 import { PrizeService } from 'projects/common/service/prize.service';
-import { SysService } from 'projects/common/service/sys.service';
 
 /**
  * 抽奖控制界面
@@ -42,7 +41,7 @@ export class LottoComponent implements OnInit, OnDestroy {
   // Websocket连接标识
   connected = false;
 
-  constructor(private prizeService: PrizeService, private sysService: SysService) {
+  constructor(private prizeService: PrizeService) {
     this.title = '抽奖控制';
   }
 
@@ -85,7 +84,7 @@ export class LottoComponent implements OnInit, OnDestroy {
    * 初始化控制信息
    */
   initControl() {
-    this.sysService.getLottoPrize().subscribe(prizeInfo => {
+    this.prizeService.getLottoPrize().subscribe(prizeInfo => {
       this.prizeInfo = prizeInfo;
       if (this.prizeInfo.prizeId) {
         this.maxPerson = this.prizeInfo.prizeNumber - this.prizeInfo.prizeWinner;

@@ -148,6 +148,7 @@ export class PrizeComponent implements OnInit {
   newPrize() {
     this.editFlag = Const.EditFlag.ADD;
     this.prizeInfo = new PrizeInfo();
+    this.getPrizeGroup();
     this.setCheckBox();
     $('#editPrizeWin').modal('show');
   }

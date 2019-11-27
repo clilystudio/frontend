@@ -90,16 +90,6 @@ export class SysService {
   }
 
   /**
-   * 取得可抽选奖项
-   */
-  public getLottoPrize(): Observable<PrizeInfo> {
-    const url = environment.api + 'sys/prize';
-    return this.http.get<PrizeInfo>(url, Const.HttpOptions).pipe(
-      catchError(this.handleError<PrizeInfo>('getLottoPrize'))
-    );
-  }
-
-  /**
    * 刷新前台
    */
   public refreshFront(): Observable<ApiResult> {

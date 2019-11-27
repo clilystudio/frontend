@@ -85,4 +85,14 @@ export class PrizeService {
       catchError(this.handleError<ApiResult>('editPrize'))
     );
   }
+
+  /**
+   * 取得可抽选奖项
+   */
+  public getLottoPrize(): Observable<PrizeInfo> {
+    const url = environment.api + 'prize/lotto';
+    return this.http.get<PrizeInfo>(url, Const.HttpOptions).pipe(
+      catchError(this.handleError<PrizeInfo>('getLottoPrize'))
+    );
+  }
 }
