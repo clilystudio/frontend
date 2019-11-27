@@ -97,21 +97,7 @@
     <div class="fields">
       <div class="sixteen wide field">
         <label>奖项描述</label>
-        <input placeholder="抽奖组ID" type="text" [value]="prizeInfo.prizeDesc" (input)="prizeInfo.prizeDesc = $event.target.value">
-      </div>
-    </div>
-    <div class="fields">
-      <div class="eight wide field">
-        <label>限定组ID</label>
-        <input placeholder="限定组ID" type="text" [value]="prizeInfo.prizeGroups[0].groupId" (input)="prizeInfo.prizeGroups[0].groupId = $event.target.value">
-      </div>
-      <div class="four wide field">
-        <label>奖项数</label>
-        <input placeholder="奖项数" type="text" [value]="prizeInfo.prizeGroups[0].prizeNumber" (input)="prizeInfo.prizeGroups[0].prizeNumber = $event.target.value">
-      </div>
-      <div class="four wide field">
-        <label>中奖数</label>
-        <input placeholder="中奖数" type="text" [value]="prizeInfo.prizeGroups[0].prizeWinner" (input)="prizeInfo.prizeGroups[0].prizeWinner = $event.target.value">
+        <input placeholder="奖项描述" type="text" [value]="prizeInfo.prizeDesc" (input)="prizeInfo.prizeDesc = $event.target.value">
       </div>
     </div>
     <div class="fields">
@@ -121,19 +107,13 @@
       <div class="four wide field">
         <label>奖项数</label>
       </div>
-      <div class="four wide field">
-        <label>中奖数</label>
-      </div>
     </div>
-    <div class="fields" *ngFor="let prizeGroup of prizeInfo.prizeGroups">
+    <div class="fields" *ngFor="let pg of prizeInfo.prizeGroups">
       <div class="eight wide field">
-        <input placeholder="限定组ID" type="text" [value]="prizeGroup.groupId" (input)="prizeGroup.groupId = $event.target.value">
+        <input placeholder="限定组ID" type="text" [value]="pg.groupId" (input)="pg.groupId = $event.target.value">
       </div>
-      <div class="four wide field">
-        <input placeholder="奖项数" type="text" [value]="prizeGroup.prizeNumber" (input)="prizeGroup.prizeNumber = $event.target.value">
-      </div>
-      <div class="four wide field">
-        <input placeholder="中奖数" type="text" [value]="prizeGroup.prizeWinner" (input)="prizeGroup.prizeWinner = $event.target.value">
+      <div class="eight wide field">
+        <input placeholder="奖项数" type="text" [value]="pg.prizeNumber" (input)="pg.prizeNumber = $event.target.value">
       </div>
     </div>
   </div>

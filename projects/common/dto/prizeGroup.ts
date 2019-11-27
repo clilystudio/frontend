@@ -9,7 +9,7 @@ export class PrizeGroup {
   groupId = Const.UNLIMIT_GROUP;
 
   // 奖品数量
-  prizeNumber = 1;
+  prizeNumber = 0;
 
   // 中奖人数
   prizeWinner = 0;

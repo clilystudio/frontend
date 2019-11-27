@@ -22,7 +22,7 @@ ons-fab.control-button {
   margin-left: -7rem;
   line-height: 10rem;
   color: #fff;
-  bottom: 3rem;
+  bottom: 2.5rem;
   box-shadow: 3px 5px #999;
 }
 /* 控制按钮选中时 */
@@ -44,7 +44,7 @@ ons-fab.control-button.pause {
 }
 /* 继续按钮 */
 ons-fab.control-button.replay {
-  background: #4caf50;
+  background: #504caf
 }
 /* 启动按钮按下时 */
 ons-fab.control-button.start:active {
@@ -56,7 +56,7 @@ ons-fab.control-button.pause:active {
 }
 /* 继续按钮按下时 */
 ons-fab.control-button.replay:active {
-  background-color: #3e8e41;
+  background-color: #413e8e;
 }
 /* Tabbar字体颜色（默认有BUG） */
 :checked+.tabbar__button {

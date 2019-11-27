@@ -565,6 +565,9 @@ export class AppComponent implements OnInit, OnDestroy {
         cols = 3;
       } else {
         cols = Math.round(len / 2.0 + 0.5);
+        if (cols > 5) {
+          cols = 5;
+        }
       }
     }
     const rows = Math.max(Math.round(len / cols), 1);

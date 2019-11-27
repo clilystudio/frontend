@@ -16,6 +16,7 @@
   <!-- 奖项信息 -->
   <ons-card class="lottocard" *ngIf="prizeInfo.prizeStatus === C.PrizeStatus.STOPPED">
     <div class="title">{{'奖品：' + prizeInfo.prizeDesc}}<br>抽取完成</div>
+    <ons-range class="range" min="0" max="0" value="0"></ons-range>
   </ons-card>
   <!-- 启动按钮 -->
   <ons-fab #startButton position="center bottom" class="control-button start" (click)="startLotto()" [disabled]="sending"

@@ -22,7 +22,7 @@
     "@stomp/stompjs": "^5.4.2",
     "core-js": "^3.4.1",
     "ngx-onsenui": "^7.0.0",
-    "onsenui": "^2.10.10",
+    "onsenui": "2.10.6",
     "rxjs": "~6.4.0",
     "sockjs-client": "^1.4.0",
     "zone.js": "~0.9.1"

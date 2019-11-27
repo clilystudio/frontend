@@ -153,11 +153,17 @@ export class PrizeComponent implements OnInit {
   }
 
   /**
-   * 修改奖项
+   * 编辑奖项
    */
   editPrize(prizeId: string) {
     this.editFlag = Const.EditFlag.EDIT;
     this.prizeInfo = this.prizeList.find(e => e.prizeId === prizeId);
+    if (this.prizeInfo.prizeWinner > 0) {
+      this.dialogTitle = '提示';
+      this.dialogMessage = '已抽奖的的奖项不能编辑';
+      this.dialog.modal('show');
+      return;
+    }
     this.getPrizeGroup();
     this.setCheckBox();
     $('#editPrizeWin').modal('show');
@@ -169,17 +175,22 @@ export class PrizeComponent implements OnInit {
   private getPrizeGroup(): void {
     this.prizeInfo.prizeGroups = [];
     const groups = this.prizeInfo.groupLimit.split(Const.Delimiter.GROUP);
-    groups.forEach(g => {
+    for (let i = 0; i < groups.length; i++) {
+      if (i >= Const.MAX_GROUPS) {
+        break;
+      }
+      const g = groups[i];
       const items = g.split(Const.Delimiter.ITEM);
       const prizeGroup = new PrizeGroup();
       prizeGroup.groupId = items[0];
       prizeGroup.prizeNumber = parseInt(items[1], 10);
       prizeGroup.prizeWinner = parseInt(items[2], 10);
       this.prizeInfo.prizeGroups.push(prizeGroup);
-    });
-    this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
-      return g.prizeNumber > g.prizeWinner;
-    });
+    }
+    for (let i = groups.length; i < Const.MAX_GROUPS; i++) {
+      const prizeGroup = new PrizeGroup();
+      this.prizeInfo.prizeGroups.push(prizeGroup);
+    }
   }
 
   /**
@@ -210,6 +221,16 @@ export class PrizeComponent implements OnInit {
    * 更新奖项信息
    */
   updatePrize() {
+    let groupLimit = '';
+    this.prizeInfo.prizeGroups.forEach(g => {
+      if (g.groupId.length > 0 && g.prizeNumber > 0) {
+        groupLimit = groupLimit + g.groupId + Const.Delimiter.ITEM + g.prizeNumber + Const.Delimiter.ITEM + '0' + Const.Delimiter.GROUP;
+      }
+    });
+    if (groupLimit.length > 0) {
+      groupLimit = groupLimit.substr(0, groupLimit.length - 1);
+    }
+    this.prizeInfo.groupLimit = groupLimit;
     if (this.editFlag === Const.EditFlag.ADD) {
       this.dialogTitle = '添加奖项';
       this.prizeService.add(this.prizeInfo).subscribe(result => this.postFinish(result), error => this.showError(error));

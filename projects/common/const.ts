@@ -83,7 +83,7 @@ export const Const = {
   },
 
   // 奖项状态名称
-  PrizeStatusName: ['待抽选', '待抽选', '抽选中', '抽选中', '已抽选', '已抽选'],
+  PrizeStatusName: ['未知', '待抽选', '待抽选', '抽选中', '抽选中', '已抽选', '已抽选'],
 
   /** 奖项类型 */
   PrizeType: {
@@ -187,5 +187,7 @@ export const Const = {
   Delimiter: {
     GROUP: ';',
     ITEM: '#'
-  }
+  },
+
+  MAX_GROUPS: 6
 };
