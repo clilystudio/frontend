@@ -189,5 +189,6 @@ export const Const = {
     ITEM: '#'
   },
 
+  /** 最多分组数 */
   MAX_GROUPS: 6
 };

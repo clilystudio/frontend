@@ -49,6 +49,9 @@ export class WinnerComponent implements OnInit, AfterViewInit, OnDestroy {
     document.removeEventListener(Const.RELOAD_WINNER, () => this.listWinner());
   }
 
+  /**
+   * 显示中奖列表
+   */
   listWinner() {
     this.sysService.getWinner().subscribe(winnerList => {
       this.winnerList = winnerList;

@@ -10,7 +10,6 @@ import { HttpErrorHandler, HandleError } from './http-error-handler';
 import { UploadService } from '../service/upload.service';
 import { WinnerInfo } from '../dto/winnerInfo';
 import { LottoInfo } from '../dto/lottoInfo';
-import { PrizeInfo } from '../dto/prizeInfo';
 
 /**
  * 系统配置服务
@@ -65,7 +64,7 @@ export class SysService {
   public reset(): Observable<ApiResult> {
     const url = environment.api + 'sys/reset';
     return this.http.post<ApiResult>(url, {}, Const.HttpOptions).pipe(
-      catchError(this.handleError<ApiResult>('resetSys'))
+      catchError(this.handleError<ApiResult>('reset'))
     );
   }
 
