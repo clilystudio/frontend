@@ -81,7 +81,7 @@ export class WinnerComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   removeWinner() {
     $('#alert-dialog').hide();
-    this.sysService.removeLotto(this.winner).subscribe(result => {
+    this.sysService.removeWinner(this.winner).subscribe(result => {
       this.postFinish(result);
     }, error => this.showError(error));
   }

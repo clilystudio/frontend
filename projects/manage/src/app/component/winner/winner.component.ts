@@ -110,7 +110,7 @@ export class WinnerComponent implements OnInit {
    */
   removeWinner() {
     this.dimmer.dimmer('show');
-    this.sysService.removeLotto(this.winner).subscribe(result => {
+    this.sysService.removeWinner(this.winner).subscribe(result => {
       this.postFinish(result);
     }, error => this.showError(error));
   }
@@ -129,7 +129,7 @@ export class WinnerComponent implements OnInit {
    */
   refreshFront() {
     this.dimmer.dimmer('show');
-    this.sysService.refreshFront().subscribe(result => {
+    this.sysService.refresh().subscribe(result => {
       this.postFinish(result);
     }, error => this.showError(error));
   }

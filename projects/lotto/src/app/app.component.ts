@@ -352,10 +352,10 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       person++;
     }
-    // 全部员工抽选完毕时，提交中奖结果
+    // 全部员工抽选完毕时，提交抽奖信息
     this.sysService.setLotto(this.lottoInfo).subscribe(result => {
       if (result.code === Const.ResultCode.SUCCESS) {
-        // 中奖结果提交成功后，场景切换到中奖显示
+        // 抽奖信息提交成功后，场景切换到中奖显示
         this.swithToWinner(this.lottoInfo);
         this.prizeInfo.prizeStatus = Const.PrizeStatus.STOPPED;
         this.sendCommand(Const.LottoControl.STOP);
@@ -564,17 +564,17 @@ export class AppComponent implements OnInit, OnDestroy {
       } else if (len % 3 === 0) {
         cols = 3;
       } else {
-        cols = Math.round(len / 2.0 + 0.5);
+        cols = Math.round(1.0 * len / 2.0 + 0.5);
         if (cols > 5) {
           cols = 5;
         }
       }
     }
-    const rows = Math.max(Math.round(len / cols), 1);
+    const rows = len % cols === 0 ? Math.max(Math.round(1.0 * len / cols), 1) : Math.max(Math.round(1.0 * len / cols + 0.5), 1);
     this.targets.winnerPositions = [];
     const len2 = this.empList.length - len;
-    const cols2 = Math.max(Math.round(Math.sqrt(len2 * Const.HW_RATIO) + 0.5), 1);
-    const rows2 = Math.max(Math.round(len2 / cols2), 1);
+    const cols2 = Math.max(Math.round(Math.sqrt(1.0 * len2 * Const.HW_RATIO) + 0.5), 1);
+    const rows2 = Math.max(Math.round(1.0 * len2 / cols2 + 0.5), 1);
     let idx = 0;
     let idx2 = 0;
     const empIds = lottoInfo.empList.map(e => e.empId);
@@ -585,7 +585,7 @@ export class AppComponent implements OnInit, OnDestroy {
         const col = idx % cols;
         const row = (idx - col) / cols;
         object3D.position.x = (col * 2 - cols) * 100 + 100;
-        object3D.position.y = (row * 2 - rows) * 70 + 80;
+        object3D.position.y = (row * 2 - rows) * 70 + 70;
         object3D.position.z = 2000;
         this.targets.winnerPositions.push(object3D);
         idx++;
@@ -593,7 +593,7 @@ export class AppComponent implements OnInit, OnDestroy {
         const object3D = new THREE.Object3D();
         const col = idx2 % cols2;
         const row = (idx2 - col) / cols2;
-        object3D.position.x = (col * 2 - cols2) * 90;
+        object3D.position.x = (col * 2 - cols2) * 90 + 100;
         object3D.position.y = (row * 2 - rows2) * 60 + 80;
         object3D.position.z = -10000;
         this.targets.winnerPositions.push(object3D);

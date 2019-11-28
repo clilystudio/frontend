@@ -70,7 +70,7 @@ export class SysService {
   }
 
   /**
-   * 设置中奖信息
+   * 设置抽奖信息
    */
   public setLotto(lottoInfo: LottoInfo): Observable<ApiResult> {
     const url = environment.api + 'sys/setlotto';
@@ -82,20 +82,20 @@ export class SysService {
   /**
    * 移除中奖信息
    */
-  public removeLotto(winnerInfo: WinnerInfo): Observable<ApiResult> {
-    const url = environment.api + 'sys/removelotto';
+  public removeWinner(winnerInfo: WinnerInfo): Observable<ApiResult> {
+    const url = environment.api + 'sys/removewinner';
     return this.http.post<ApiResult>(url, winnerInfo, Const.HttpOptions).pipe(
-      catchError(this.handleError<ApiResult>('removeLotto'))
+      catchError(this.handleError<ApiResult>('removeWinner'))
     );
   }
 
   /**
    * 刷新前台
    */
-  public refreshFront(): Observable<ApiResult> {
-    const url = environment.api + 'sys/refreshfront';
+  public refresh(): Observable<ApiResult> {
+    const url = environment.api + 'sys/refresh';
     return this.http.post<ApiResult>(url, [], Const.HttpOptions).pipe(
-      catchError(this.handleError<ApiResult>('refreshFront'))
+      catchError(this.handleError<ApiResult>('refresh'))
     );
   }
 }
