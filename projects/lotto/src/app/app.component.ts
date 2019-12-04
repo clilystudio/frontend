@@ -205,15 +205,15 @@ export class AppComponent implements OnInit, OnDestroy {
       this.prizeInfo = prizeInfo;
       this.getPrizeGroup();
       $('.prize .desc').html('准备抽取 ' + prizeInfo.prizeName + ' ' + prizeInfo.prizeDesc);
-      let photoUrl = '';
       if (prizeInfo.prizeType === Const.PrizeType.CASH) {
         // 现金奖，使用固定图片
-        photoUrl = Const.RES_BASE_URL + 'cash.png';
+        const photoUrl = Const.RES_BASE_URL + 'cash.png';
+        $('.prize .photo').html('<img src="' + photoUrl + '">');
       } else {
         // 实物奖，使用预先准备的对应图片
-        photoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.png';
+        const videoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.mp4';
+        $('.prize .photo').html('<video src="' + videoUrl + '" autoplay muted width="640" height="480">');
       }
-      $('.prize .photo').html('<img src="' + photoUrl + '">');
       $('.prize').show();
       // 镜头推进到奖项显示
       this.zoomFlag = Const.ZoomFlag.ZOOM_IN;
