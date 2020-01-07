@@ -656,13 +656,26 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean): number {
     let empRate = 0;
+    // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
+    if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
+      return empRate;
+    }
+    // 员工为高奖项抽奖组时不参与抽低等奖（三等奖以下）
+    if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP && this.prizeInfo.prizeId >= Const.LottoConig.PRIZELVL_LIMIT) {
+      return empRate;
+    }
+    // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
     this.prizeInfo.prizeGroups.forEach(g => {
-      if (unlimitGroup || g.groupId === Const.UNLIMIT_GROUP || g.groupId === empInfo.groupId) {
+      if (unlimitGroup || g.groupId === Const.LottoConig.UNLIMIT_GROUP || g.groupId === empInfo.groupId) {
         // 未限定抽奖组ID 或 未指定抽奖组ID 或 为指定组内成员时，返回中奖权值
         if (empInfo.prizeFlag === Const.PrizeFlag.NONE ||
             (unlimitWinned && empInfo.prizeFlag !== Const.PrizeFlag.GIVEUP)) {
           // 未中奖状态 或 允许重复中奖且未弃奖状态，计算中奖权值
           empRate = empInfo.empRate;
+          // 员工为高奖项抽奖组时进行加权处理
+          if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP) {
+            empRate = empRate * Const.LottoConig.HIGHLVL_RATE;
+          }
         }
       }
     });

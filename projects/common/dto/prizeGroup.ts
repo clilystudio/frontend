@@ -6,7 +6,7 @@ import { Const } from '../const';
 export class PrizeGroup {
 
   // 抽奖组限定
-  groupId = Const.UNLIMIT_GROUP;
+  groupId = Const.LottoConig.UNLIMIT_GROUP;
 
   // 奖品数量
   prizeNumber = 0;

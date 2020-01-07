@@ -12,38 +12,55 @@ export const Const = {
 
   // 部门列表，因为数据固定，直接在前端定义而不通过后台从数据库中取得了
   DeptList: [
-    { deptId: 'IC1000', deptName: '第一事业单位', idName: 'IC1000 : 第一事业单位' },
-    { deptId: 'FC10C0', deptName: '共享服务中心', idName: 'FC10C0 : 共享服务中心' },
-    { deptId: 'FC10C1', deptName: '人资服务课', idName: 'FC10C1 : 人资服务课' },
-    { deptId: 'FC10C2', deptName: '行政服务课', idName: 'FC10C2 : 行政服务课' },
-    { deptId: 'FC10C3', deptName: '资讯服务课', idName: 'FC10C3 : 资讯服务课' },
-    { deptId: 'FF0230', deptName: '大陆资金部', idName: 'FF0230 : 大陆资金部' },
-    { deptId: 'IC1001', deptName: '商务中心', idName: 'IC1001 : 商务中心' },
-    { deptId: 'IC1010', deptName: '产品全球化交付中心', idName: 'IC1010 : 产品全球化交付中心' },
-    { deptId: 'IC1020', deptName: '高科技业务二部', idName: 'IC1020 : 高科技业务二部' },
-    { deptId: 'IC1021', deptName: '高科技业务一课', idName: 'IC1021 : 高科技业务一课' },
-    { deptId: 'IC1022', deptName: '高科技业务二课', idName: 'IC1022 : 高科技业务二课' },
-    { deptId: 'IC1030', deptName: '高科技业务三部', idName: 'IC1030 : 高科技业务三部' },
-    { deptId: 'IC1031', deptName: '高科技业务一课', idName: 'IC1031 : 高科技业务一课' },
-    { deptId: 'IC1032', deptName: '高科技业务二课', idName: 'IC1032 : 高科技业务二课' },
-    { deptId: 'IC1040', deptName: '新业务开发部', idName: 'IC1040 : 新业务开发部' },
-    { deptId: 'IC1041', deptName: '高科技业务一课', idName: 'IC1041 : 高科技业务一课' },
-    { deptId: 'IC1042', deptName: '高科技业务二课', idName: 'IC1042 : 高科技业务二课' },
-    { deptId: 'IC1043', deptName: '互联网业务课', idName: 'IC1043 : 互联网业务课' },
-    { deptId: 'IC1050', deptName: '大连交付中心', idName: 'IC1050 : 大连交付中心' },
-    { deptId: 'IC1100', deptName: '业务一处', idName: 'IC1100 : 业务一处' },
-    { deptId: 'IC1110', deptName: '大连开发中心', idName: 'IC1110 : 大连开发中心' },
-    { deptId: 'IC1111', deptName: '开发一课', idName: 'IC1111 : 开发一课' },
-    { deptId: 'IC1112', deptName: '开发二课', idName: 'IC1112 : 开发二课' },
-    { deptId: 'IC1113', deptName: '技术支持课', idName: 'IC1113 : 技术支持课' },
-    { deptId: 'IC1120', deptName: '高科技业务一部', idName: 'IC1120 : 高科技业务一部' },
-    { deptId: 'IC1200', deptName: '业务二处', idName: 'IC1200 : 业务二处' },
-    { deptId: 'IC1210', deptName: '大连BPO中心', idName: 'IC1210 : 大连BPO中心' },
-    { deptId: 'IC1211', deptName: 'BPO交付一课', idName: 'IC1211 : BPO交付一课' },
-    { deptId: 'IC1212', deptName: 'BPO交付二课', idName: 'IC1212 : BPO交付二课' },
-    { deptId: 'IC1220', deptName: '业务一部', idName: 'IC1220 : 业务一部' },
-    { deptId: 'IC1230', deptName: '业务二部', idName: 'IC1230 : 业务二部' },
-    { deptId: 'IC1310', deptName: '業務部', idName: 'IC1310 : 業務部' }
+    { deptId: 'IC1000', deptName: '第一事业单位', idName: 'IC1000 : 第一事业单位'},
+    { deptId: 'IC1001', deptName: '商务中心', idName: 'IC1001 : 商务中心'},
+    { deptId: 'IC1010', deptName: '产品全球化交付中心', idName: 'IC1010 : 产品全球化交付中心'},
+    { deptId: 'IC1020', deptName: '高科技业务部', idName: 'IC1020 : 高科技业务部'},
+    { deptId: 'IC1021', deptName: '高科技业务一课', idName: 'IC1021 : 高科技业务一课'},
+    { deptId: 'IC1022', deptName: '高科技业务二课', idName: 'IC1022 : 高科技业务二课'},
+    { deptId: 'IC1023', deptName: '高科技业务三课', idName: 'IC1023 : 高科技业务三课'},
+    { deptId: 'IC1030', deptName: '高科技业务三部', idName: 'IC1030 : 高科技业务三部'},
+    { deptId: 'IC1031', deptName: '高科技业务一课', idName: 'IC1031 : 高科技业务一课'},
+    { deptId: 'IC1032', deptName: '高科技业务二课', idName: 'IC1032 : 高科技业务二课'},
+    { deptId: 'IC1040', deptName: '新业务开发部', idName: 'IC1040 : 新业务开发部'},
+    { deptId: 'IC1041', deptName: '高科技业务一课', idName: 'IC1041 : 高科技业务一课'},
+    { deptId: 'IC1042', deptName: '高科技业务二课', idName: 'IC1042 : 高科技业务二课'},
+    { deptId: 'IC1043', deptName: '互联网业务课', idName: 'IC1043 : 互联网业务课'},
+    { deptId: 'IC1050', deptName: '大连交付中心', idName: 'IC1050 : 大连交付中心'},
+    { deptId: 'IC10C0', deptName: '共享服务中心', idName: 'IC10C0 : 共享服务中心'},
+    { deptId: 'IC10C1', deptName: '人资服务课', idName: 'IC10C1 : 人资服务课'},
+    { deptId: 'IC10C2', deptName: '行政服务课', idName: 'IC10C2 : 行政服务课'},
+    { deptId: 'IC10C3', deptName: '信息服务课', idName: 'IC10C3 : 信息服务课'},
+    { deptId: 'IC1100', deptName: '大连开发中心', idName: 'IC1100 : 大连开发中心'},
+    { deptId: 'IC1110', deptName: 'ITO业务部', idName: 'IC1110 : ITO业务部'},
+    { deptId: 'IC1111', deptName: 'ITO开发课', idName: 'IC1111 : ITO开发课'},
+    { deptId: 'IC1112', deptName: '技术课', idName: 'IC1112 : 技术课'},
+    { deptId: 'IC1113', deptName: '技术支持课', idName: 'IC1113 : 技术支持课'},
+    { deptId: 'IC1120', deptName: '高科技业务一部', idName: 'IC1120 : 高科技业务一部'},
+    { deptId: 'IC1130', deptName: 'BPO业务部', idName: 'IC1130 : BPO业务部'},
+    { deptId: 'IC1131', deptName: 'BPO业务一课', idName: 'IC1131 : BPO业务一课'},
+    { deptId: 'IC1132', deptName: 'BPO业务二课', idName: 'IC1132 : BPO业务二课'},
+    { deptId: 'IC1140', deptName: '产品全球化交付中心', idName: 'IC1140 : 产品全球化交付中心'},
+    { deptId: 'IC1200', deptName: '综合业务处', idName: 'IC1200 : 综合业务处'},
+    { deptId: 'IC1210', deptName: '大连BPO中心', idName: 'IC1210 : 大连BPO中心'},
+    { deptId: 'IC1211', deptName: 'BPO交付一课', idName: 'IC1211 : BPO交付一课'},
+    { deptId: 'IC1212', deptName: 'BPO交付二课', idName: 'IC1212 : BPO交付二课'},
+    { deptId: 'IC1220', deptName: '业务一部', idName: 'IC1220 : 业务一部'},
+    { deptId: 'IC1230', deptName: '综合业务三部', idName: 'IC1230 : 综合业务三部'},
+    { deptId: 'IC1231', deptName: '高科技業務一課', idName: 'IC1231 : 高科技業務一課'},
+    { deptId: 'IC1232', deptName: '高科技业务二课', idName: 'IC1232 : 高科技业务二课'},
+    { deptId: 'IC1240', deptName: '综合业务一部', idName: 'IC1240 : 综合业务一部'},
+    { deptId: 'IC1241', deptName: '电信业务部', idName: 'IC1241 : 电信业务部'},
+    { deptId: 'IC1242', deptName: '高科技业务课', idName: 'IC1242 : 高科技业务课'},
+    { deptId: 'IC1250', deptName: '综合业务二部', idName: 'IC1250 : 综合业务二部'},
+    { deptId: 'IC1251', deptName: '金融业务课', idName: 'IC1251 : 金融业务课'},
+    { deptId: 'IC1252', deptName: '互联网业务课', idName: 'IC1252 : 互联网业务课'},
+    { deptId: 'IC1253', deptName: 'BPO业务课', idName: 'IC1253 : BPO业务课'},
+    { deptId: 'IC1254', deptName: '综合业务课', idName: 'IC1254 : 综合业务课'},
+    { deptId: 'IC1300', deptName: '国际业务处', idName: 'IC1300 : 国际业务处'},
+    { deptId: 'IC1310', deptName: '業務部', idName: 'IC1310 : 業務部'},
+    { deptId: 'IC1999', deptName: 'WIST BU1', idName: 'IC1999 : WIST BU1'},
+    { deptId: 'TF0160', deptName: '經營分析二部', idName: 'TF0160 : 經營分析二部'}
   ],
 
   /** 编辑标识 */
@@ -170,8 +187,19 @@ export const Const = {
   /** 自定义事件 */
   RELOAD_WINNER: 'reloadwinner',
 
-  /** 不限定抽奖组 */
-  UNLIMIT_GROUP: '000000',
+  /** 抽奖控制 */
+  LottoConig: {
+    /** 不限定抽奖组 */
+    UNLIMIT_GROUP: '000000',
+    /** 限定非现金奖组 */
+    NOCASH_GROUP: 'IC1990',
+    /** 奖品等级限制 */
+    PRIZELVL_LIMIT: 'LV30',
+    /** 限定高奖项组 */
+    HIGHLVL_GROUP: 'ICZZZ0',
+    /** 高奖项组加权 */
+    HIGHLVL_RATE: 5
+  },
 
   /** 确认标识 */
   CamaraConfig: {

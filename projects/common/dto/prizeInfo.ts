@@ -25,7 +25,7 @@ export class PrizeInfo {
   prizeOrder = 3000;
 
   // 抽奖组限定
-  groupLimit = Const.UNLIMIT_GROUP + Const.Delimiter.ITEM + '0' + Const.Delimiter.ITEM + '0';
+  groupLimit = Const.LottoConig.UNLIMIT_GROUP + Const.Delimiter.ITEM + '0' + Const.Delimiter.ITEM + '0';
 
   // 奖品数量
   prizeNumber = 1;
