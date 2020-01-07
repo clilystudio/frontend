@@ -57,7 +57,7 @@ export class AppComponent implements OnInit, OnDestroy {
   minDistance = 1000;
 
   // 环状显示数量
-  circle = 40;
+  circle = 80;
 
   // 等待抽奖时镜头旋转速度
   waitSpeed = -0.001;
@@ -413,7 +413,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // 员工显示
     const len = this.empList.length;
     const circles = Math.max(Math.round(len / this.circle), 1);
-    const cubeRoot = Math.max(Math.cbrt(len), 1);
+    // const cubeRoot = Math.max(Math.cbrt(len), 1);
     this.empList.forEach((e, idx) => {
       const element = document.createElement('div');
       let className = 'element';
@@ -437,7 +437,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
       const detailDiv = document.createElement('div');
       detailDiv.className = 'detail';
-      detailDiv.innerHTML = e.deptName + '<br>' + e.empId;
+      // detailDiv.innerHTML = e.deptName + '<br>' + e.empId;
+      detailDiv.innerHTML = e.empId;
       element.appendChild(detailDiv);
 
       const css3Object = new THREE.CSS3DObject(element);
@@ -470,8 +471,8 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   private setHelixPosition(idx: number, circles: number) {
     const vector = new THREE.Vector3();
-    const theta = idx * Math.PI / this.circle + Math.PI;
-    const y = circles * this.circle - (idx * 2.0) - 10;
+    const theta = idx * 2 * Math.PI / this.circle + Math.PI;
+    const y = circles * this.circle - (idx * 2.5) + 100;
     const object3D = new THREE.Object3D();
     object3D.position.setFromCylindricalCoords(this.radius, theta, y);
     vector.x = object3D.position.x * 2;
