@@ -106,6 +106,9 @@ export class AppComponent implements OnInit, OnDestroy {
   // 抽奖权值合计值
   lottoRateSum = 0;
 
+  // 高奖组加权
+  highLvlRate = 1;
+
   constructor(private empService: EmpService, private prizeService: PrizeService,
               private sysService: SysService) { }
 
@@ -115,7 +118,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.stompClient.onDisconnect = (frame) => {
-      console.log(frame);
       this.connected = false;
     };
     this.stompClient.deactivate();
@@ -130,7 +132,6 @@ export class AppComponent implements OnInit, OnDestroy {
       return new SockJS(environment.endPoint);
     };
     this.stompClient.onConnect = (frame) => {
-      console.log(frame);
       this.connected = true;
       this.listEmp();
     };
@@ -237,7 +238,6 @@ export class AppComponent implements OnInit, OnDestroy {
           $('.element.' + e.empId).addClass('giveup');
         }
       });
-      console.log('#readyLotto');
       // 切换到员工信息转动模式
       this.controls.rotateX = this.waitSpeed;
       this.transform(this.targets.helix, Const.TRANS_DURATION);
@@ -296,21 +296,31 @@ export class AppComponent implements OnInit, OnDestroy {
     this.lottoInfo.prizeId = controlInfo.prizeId;
     this.lottoInfo.empList = [];
     let person = 0;
+    this.highLvlRate = Const.LottoConig.HIGHLVL_RATE;
     // 循环抽选指定人数中奖
     while (person < prizePerson) {
+      this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
+        return g.prizeNumber > g.prizeWinner;
+      });
+      if (this.prizeInfo.prizeGroups.length === 0) {
+          // 正常情况不应该出现，只会在抽选员工数超过奖项数才会出现这种情况
+          this.showError('抽选员工数超过奖项数');
+          return;
+      }
+      const prizeGroup = this.prizeInfo.prizeGroups[0];
       // 确定中奖权值合计
       this.lottoRateSum = 0;
       let unlimitGroup = false;
       let unlimitWinned = false;
       this.empList.forEach(e => {
-        this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned);
+        this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
       });
       if (this.lottoRateSum === 0) {
         // 中奖权值合计为0时，表示没有可抽选员工时，放宽奖项指定组限制
         console.warn('#没有可抽选员工时，放宽奖项指定组限制');
         unlimitGroup = true;
         this.empList.forEach(e => {
-          this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned);
+          this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
         });
 
         if (this.lottoRateSum === 0) {
@@ -318,9 +328,8 @@ export class AppComponent implements OnInit, OnDestroy {
           console.warn('#还是没有可抽选员工时，放宽奖项重复中奖限制');
           unlimitWinned = true;
           this.empList.forEach(e => {
-            this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned);
+            this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
           });
-
           if (this.lottoRateSum === 0) {
             // 彻底放宽奖项限制后，仍然没有可抽选员工，
             // 正常情况不应该出现，只会在没有员工，或者员工全部为弃奖状态或者中奖权值为0时才会出现这种情况
@@ -332,20 +341,15 @@ export class AppComponent implements OnInit, OnDestroy {
       // 随机计算中奖值
       let winnedRate = Math.round(Math.random() * this.lottoRateSum + 0.5);
       this.empList.some(e => {
-          const empRate = this.getEmpRate(e, unlimitGroup, unlimitWinned);
+          const empRate = this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
           if (empRate >= winnedRate) {
             // 中奖值在员工权值内时，该员工中奖
             e.prizeFlag = Const.PrizeFlag.WIN;
             this.lottoInfo.empList.push(e);
-            this.prizeInfo.prizeGroups.some(g => {
-              if (g.groupId === e.groupId) {
-                g.prizeWinner++;
-                return true;
-              }
-            });
-            this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
-              return g.prizeNumber > g.prizeWinner;
-            });
+            this.prizeInfo.prizeGroups[0].prizeWinner++;
+            if (e.groupId === Const.LottoConig.HIGHLVL_GROUP) {
+              this.highLvlRate = 1;
+            }
             return true;
           }
           winnedRate -= empRate;
@@ -655,7 +659,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param unlimitWinned 限定中奖状态开关
    * @return 计算中奖权值
    */
-  private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean): number {
+  private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean, prizeGroup: PrizeGroup): number {
     let empRate = 0;
     // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
     if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
@@ -665,21 +669,19 @@ export class AppComponent implements OnInit, OnDestroy {
     if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP && this.prizeInfo.prizeId >= Const.LottoConig.PRIZELVL_LIMIT) {
       return empRate;
     }
-    // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
-    this.prizeInfo.prizeGroups.forEach(g => {
-      if (unlimitGroup || g.groupId === Const.LottoConig.UNLIMIT_GROUP || g.groupId === empInfo.groupId) {
-        // 未限定抽奖组ID 或 未指定抽奖组ID 或 为指定组内成员时，返回中奖权值
-        if (empInfo.prizeFlag === Const.PrizeFlag.NONE ||
-            (unlimitWinned && empInfo.prizeFlag !== Const.PrizeFlag.GIVEUP)) {
-          // 未中奖状态 或 允许重复中奖且未弃奖状态，计算中奖权值
-          empRate = empInfo.empRate;
-          // 员工为高奖项抽奖组时进行加权处理
-          if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP) {
-            empRate = empRate * Const.LottoConig.HIGHLVL_RATE;
-          }
+    // 循环奖项分组
+    if (unlimitGroup || prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP || prizeGroup.groupId === empInfo.groupId) {
+      // 未限定抽奖组ID 或 未指定抽奖组ID 或 为指定组内成员时，返回中奖权值
+      if (empInfo.prizeFlag === Const.PrizeFlag.NONE ||
+          (unlimitWinned && empInfo.prizeFlag !== Const.PrizeFlag.GIVEUP)) {
+        // 未中奖状态 或 允许重复中奖且未弃奖状态，计算中奖权值
+        empRate = empInfo.empRate;
+        // 员工为高奖项抽奖组时进行加权处理
+        if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP && this.prizeInfo.prizeId <= Const.LottoConig.HIGHLVL_LIMIT) {
+          empRate = empRate * this.highLvlRate;
         }
       }
-    });
+    }
     return empRate;
   }
 }

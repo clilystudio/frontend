@@ -197,8 +197,10 @@ export const Const = {
     PRIZELVL_LIMIT: 'LV30',
     /** 限定高奖项组 */
     HIGHLVL_GROUP: 'ICZZZ0',
+    /** 高奖等级限制 */
+    HIGHLVL_LIMIT: 'EX10',
     /** 高奖项组加权 */
-    HIGHLVL_RATE: 5
+    HIGHLVL_RATE: 10
   },
 
   /** 确认标识 */
