@@ -22,10 +22,9 @@ declare var TWEEN: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   // 系统常量
   C = Const;
 
@@ -79,7 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // 显示中奖时的位置信息
     winnerPositions: [],
     // 显示抽奖时的位置信息，环状
-    helix: []
+    helix: [],
   };
 
   // 镜头
@@ -106,18 +105,14 @@ export class AppComponent implements OnInit, OnDestroy {
   // 抽奖权值合计值
   lottoRateSum = 0;
 
-  // 高奖组加权
-  highLvlRate = 1;
-
-  constructor(private empService: EmpService, private prizeService: PrizeService,
-              private sysService: SysService) { }
+  constructor(private empService: EmpService, private prizeService: PrizeService, private sysService: SysService) {}
 
   ngOnInit() {
     this.connect();
   }
 
   ngOnDestroy() {
-    this.stompClient.onDisconnect = (frame) => {
+    this.stompClient.onDisconnect = frame => {
       this.connected = false;
     };
     this.stompClient.deactivate();
@@ -131,7 +126,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.stompClient.webSocketFactory = () => {
       return new SockJS(environment.endPoint);
     };
-    this.stompClient.onConnect = (frame) => {
+    this.stompClient.onConnect = frame => {
       this.connected = true;
       this.listEmp();
     };
@@ -142,18 +137,21 @@ export class AppComponent implements OnInit, OnDestroy {
    * 显示员工一览
    */
   public listEmp() {
-    this.empService.list().subscribe(empList => {
-      // 乱序排列
-      this.empList = empList.sort((a, b) => a.order - b.order);
-      // 初始化显示
-      this.initElement();
-      // 开始动画
-      this.animate();
-      // 员工数据准备好之后，才开始接收Websocket通知
-      this.stompClient.subscribe(Const.STATUS_CONTROL, (statusInfo) => {
-        this.recvStatus(JSON.parse(statusInfo.body));
-      });
-    }, error => this.showError(error));
+    this.empService.list().subscribe(
+      empList => {
+        // 乱序排列
+        this.empList = empList.sort((a, b) => a.order - b.order);
+        // 初始化显示
+        this.initElement();
+        // 开始动画
+        this.animate();
+        // 员工数据准备好之后，才开始接收Websocket通知
+        this.stompClient.subscribe(Const.STATUS_CONTROL, statusInfo => {
+          this.recvStatus(JSON.parse(statusInfo.body));
+        });
+      },
+      error => this.showError(error)
+    );
   }
 
   /**
@@ -169,7 +167,10 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log('#sendCommand:' + JSON.stringify(controlInfo));
     // 延时发送
     setTimeout(() => {
-      this.stompClient.publish({ destination: Const.LOTTO_CHANGEL, body: JSON.stringify(controlInfo) });
+      this.stompClient.publish({
+        destination: Const.LOTTO_CHANGEL,
+        body: JSON.stringify(controlInfo),
+      });
     }, Const.SEND_DELAY);
   }
 
@@ -201,48 +202,51 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param controlInfo 状态信息
    */
   private readyLotto(controlInfo: ControlInfo) {
-    this.prizeService.get(controlInfo.prizeId).subscribe(prizeInfo => {
-      // 显示奖项信息
-      this.prizeInfo = prizeInfo;
-      this.getPrizeGroup();
-      $('.prize .desc').html('准备抽取 ' + prizeInfo.prizeName + ' ' + prizeInfo.prizeDesc);
-      if (prizeInfo.prizeType === Const.PrizeType.CASH) {
-        // 现金奖，使用固定图片
-        const photoUrl = Const.RES_BASE_URL + 'cash.png';
-        $('.prize .photo').html('<img src="' + photoUrl + '">');
-      } else {
-        // 实物奖，使用预先准备的对应图片
-        const videoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.mp4';
-        $('.prize .photo').html('<video src="' + videoUrl + '" autoplay muted width="640" height="480">');
-      }
-      $('.prize').show();
-      // 镜头推进到奖项显示
-      this.zoomFlag = Const.ZoomFlag.ZOOM_IN;
-      this.prizeInfo.prizeStatus = Const.PrizeStatus.READIED;
-      // 背景音乐停止播放
-      if (this.lottoSound && this.lottoSound.isPlaying) {
-        this.lottoSound.stop();
-      }
-      if (this.winnerSound && this.winnerSound.isPlaying) {
-        this.winnerSound.stop();
-      }
-      this.empList.forEach((e) => {
-        if (e.prizeFlag === Const.PrizeFlag.WIN) {
-          // 设置获奖员工显示
-          $('.element.' + e.empId).removeClass('winner');
-          $('.element.' + e.empId).addClass('winned');
-        } else if (e.prizeFlag === Const.PrizeFlag.GIVEUP) {
-          // 设置弃奖员工显示
-          $('.element.' + e.empId).removeClass('winner');
-          $('.element.' + e.empId).removeClass('winned');
-          $('.element.' + e.empId).addClass('giveup');
+    this.prizeService.get(controlInfo.prizeId).subscribe(
+      prizeInfo => {
+        // 显示奖项信息
+        this.prizeInfo = prizeInfo;
+        this.getPrizeGroup();
+        $('.prize .desc').html('准备抽取 ' + prizeInfo.prizeName + ' ' + prizeInfo.prizeDesc);
+        if (prizeInfo.prizeType === Const.PrizeType.CASH) {
+          // 现金奖，使用固定图片
+          const photoUrl = Const.RES_BASE_URL + 'cash.png';
+          $('.prize .photo').html('<img src="' + photoUrl + '">');
+        } else {
+          // 实物奖，使用预先准备的对应图片
+          const videoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.mp4';
+          $('.prize .photo').html('<video src="' + videoUrl + '" autoplay muted width="640" height="480">');
         }
-      });
-      // 切换到员工信息转动模式
-      this.controls.rotateX = this.waitSpeed;
-      this.transform(this.targets.helix, Const.TRANS_DURATION);
-      this.sendCommand(Const.LottoControl.READY);
-    }, error => this.showError(error));
+        $('.prize').show();
+        // 镜头推进到奖项显示
+        this.zoomFlag = Const.ZoomFlag.ZOOM_IN;
+        this.prizeInfo.prizeStatus = Const.PrizeStatus.READIED;
+        // 背景音乐停止播放
+        if (this.lottoSound && this.lottoSound.isPlaying) {
+          this.lottoSound.stop();
+        }
+        if (this.winnerSound && this.winnerSound.isPlaying) {
+          this.winnerSound.stop();
+        }
+        this.empList.forEach(e => {
+          if (e.prizeFlag === Const.PrizeFlag.WIN) {
+            // 设置获奖员工显示
+            $('.element.' + e.empId).removeClass('winner');
+            $('.element.' + e.empId).addClass('winned');
+          } else if (e.prizeFlag === Const.PrizeFlag.GIVEUP) {
+            // 设置弃奖员工显示
+            $('.element.' + e.empId).removeClass('winner');
+            $('.element.' + e.empId).removeClass('winned');
+            $('.element.' + e.empId).addClass('giveup');
+          }
+        });
+        // 切换到员工信息转动模式
+        this.controls.rotateX = this.waitSpeed;
+        this.transform(this.targets.helix, Const.TRANS_DURATION);
+        this.sendCommand(Const.LottoControl.READY);
+      },
+      error => this.showError(error)
+    );
   }
 
   /**
@@ -250,27 +254,30 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param controlInfo 状态信息
    */
   startLotto(controlInfo: ControlInfo) {
-    this.prizeService.get(controlInfo.prizeId).subscribe(prizeInfo => {
-      this.prizeInfo = prizeInfo;
-      this.getPrizeGroup();
-      $('.prize .desc').html('开始抽取 ' + controlInfo.prizePerson + '项 ' + prizeInfo.prizeName);
-      let photoUrl = '';
-      if (prizeInfo.prizeType === Const.PrizeType.CASH) {
-        // 现金奖，使用固定图片
-        photoUrl = Const.RES_BASE_URL + 'cash.png';
-      } else {
-        // 实物奖，使用预先准备的对于图片
-        photoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.png';
-      }
-      $('.prize .photo').html('<img src="' + photoUrl + '">');
-      $('.prize').show();
-      // 镜头拉回到员工抽奖转动界面
-      this.zoomFlag = Const.ZoomFlag.ZOOM_OUT;
-      this.controls.rotateX = this.lottoSpeed;
-      this.prizeInfo.prizeStatus = Const.PrizeStatus.STARTTED;
-      this.sendCommand(Const.LottoControl.START);
-      this.lottoSound.play();
-    }, error => this.showError(error));
+    this.prizeService.get(controlInfo.prizeId).subscribe(
+      prizeInfo => {
+        this.prizeInfo = prizeInfo;
+        this.getPrizeGroup();
+        $('.prize .desc').html('开始抽取 ' + controlInfo.prizePerson + '项 ' + prizeInfo.prizeName);
+        let photoUrl = '';
+        if (prizeInfo.prizeType === Const.PrizeType.CASH) {
+          // 现金奖，使用固定图片
+          photoUrl = Const.RES_BASE_URL + 'cash.png';
+        } else {
+          // 实物奖，使用预先准备的对于图片
+          photoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.png';
+        }
+        $('.prize .photo').html('<img src="' + photoUrl + '">');
+        $('.prize').show();
+        // 镜头拉回到员工抽奖转动界面
+        this.zoomFlag = Const.ZoomFlag.ZOOM_OUT;
+        this.controls.rotateX = this.lottoSpeed;
+        this.prizeInfo.prizeStatus = Const.PrizeStatus.STARTTED;
+        this.sendCommand(Const.LottoControl.START);
+        this.lottoSound.play();
+      },
+      error => this.showError(error)
+    );
   }
 
   /**
@@ -278,11 +285,14 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param controlInfo 状态信息
    */
   stopLotto(controlInfo: ControlInfo) {
-    this.prizeService.get(controlInfo.prizeId).subscribe(prizeInfo => {
-      this.prizeInfo = prizeInfo;
-      this.getPrizeGroup();
-      this.setWinner(controlInfo);
-    }, error => this.showError(error));
+    this.prizeService.get(controlInfo.prizeId).subscribe(
+      prizeInfo => {
+        this.prizeInfo = prizeInfo;
+        this.getPrizeGroup();
+        this.setWinner(controlInfo);
+      },
+      error => this.showError(error)
+    );
   }
 
   /**
@@ -296,16 +306,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.lottoInfo.prizeId = controlInfo.prizeId;
     this.lottoInfo.empList = [];
     let person = 0;
-    this.highLvlRate = Const.LottoConig.HIGHLVL_RATE;
     // 循环抽选指定人数中奖
     while (person < prizePerson) {
       this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
         return g.prizeNumber > g.prizeWinner;
       });
       if (this.prizeInfo.prizeGroups.length === 0) {
-          // 正常情况不应该出现，只会在抽选员工数超过奖项数才会出现这种情况
-          this.showError('抽选员工数超过奖项数');
-          return;
+        // 正常情况不应该出现，只会在抽选员工数超过奖项数才会出现这种情况
+        this.showError('抽选员工数超过奖项数');
+        return;
       }
       const prizeGroup = this.prizeInfo.prizeGroups[0];
       // 确定中奖权值合计
@@ -341,40 +350,40 @@ export class AppComponent implements OnInit, OnDestroy {
       // 随机计算中奖值
       let winnedRate = Math.round(Math.random() * this.lottoRateSum + 0.5);
       this.empList.some(e => {
-          const empRate = this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
-          if (empRate >= winnedRate) {
-            // 中奖值在员工权值内时，该员工中奖
-            e.prizeFlag = Const.PrizeFlag.WIN;
-            this.lottoInfo.empList.push(e);
-            this.prizeInfo.prizeGroups[0].prizeWinner++;
-            if (e.groupId === Const.LottoConig.HIGHLVL_GROUP) {
-              this.highLvlRate = 1;
-            }
-            return true;
-          }
-          winnedRate -= empRate;
+        const empRate = this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
+        if (empRate >= winnedRate) {
+          // 中奖值在员工权值内时，该员工中奖
+          e.prizeFlag = Const.PrizeFlag.WIN;
+          this.lottoInfo.empList.push(e);
+          this.prizeInfo.prizeGroups[0].prizeWinner++;
+          return true;
+        }
+        winnedRate -= empRate;
       });
       person++;
     }
     // 全部员工抽选完毕时，提交抽奖信息
-    this.sysService.setLotto(this.lottoInfo).subscribe(result => {
-      if (result.code === Const.ResultCode.SUCCESS) {
-        // 抽奖信息提交成功后，场景切换到中奖显示
-        this.swithToWinner(this.lottoInfo);
-        this.prizeInfo.prizeStatus = Const.PrizeStatus.STOPPED;
-        this.sendCommand(Const.LottoControl.STOP);
-        this.zoomFlag = Const.ZoomFlag.ZOOM_NONE;
-        this.camera.position.z = this.radius;
-        this.camera.position.x = 0;
-        this.camera.position.y = 0;
-        if (this.lottoSound && this.lottoSound.isPlaying) {
-          this.lottoSound.stop();
+    this.sysService.setLotto(this.lottoInfo).subscribe(
+      result => {
+        if (result.code === Const.ResultCode.SUCCESS) {
+          // 抽奖信息提交成功后，场景切换到中奖显示
+          this.swithToWinner(this.lottoInfo);
+          this.prizeInfo.prizeStatus = Const.PrizeStatus.STOPPED;
+          this.sendCommand(Const.LottoControl.STOP);
+          this.zoomFlag = Const.ZoomFlag.ZOOM_NONE;
+          this.camera.position.z = this.radius;
+          this.camera.position.x = 0;
+          this.camera.position.y = 0;
+          if (this.lottoSound && this.lottoSound.isPlaying) {
+            this.lottoSound.stop();
+          }
+          if (this.winnerSound && !this.lottoSound.isPlaying) {
+            this.winnerSound.play();
+          }
         }
-        if (this.winnerSound && !this.lottoSound.isPlaying) {
-          this.winnerSound.play();
-        }
-      }
-    }, error => this.showError(error));
+      },
+      error => this.showError(error)
+    );
   }
 
   /**
@@ -417,7 +426,6 @@ export class AppComponent implements OnInit, OnDestroy {
     // 员工显示
     const len = this.empList.length;
     const circles = Math.max(Math.round(len / this.circle), 1);
-    // const cubeRoot = Math.max(Math.cbrt(len), 1);
     this.empList.forEach((e, idx) => {
       const element = document.createElement('div');
       let className = 'element';
@@ -441,7 +449,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       const detailDiv = document.createElement('div');
       detailDiv.className = 'detail';
-      // detailDiv.innerHTML = e.deptName + '<br>' + e.empId;
       detailDiv.innerHTML = e.empId;
       element.appendChild(detailDiv);
 
@@ -475,8 +482,8 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   private setHelixPosition(idx: number, circles: number) {
     const vector = new THREE.Vector3();
-    const theta = idx * 2 * Math.PI / this.circle + Math.PI;
-    const y = circles * this.circle - (idx * 2.5) + 100;
+    const theta = (idx * 2 * Math.PI) / this.circle + Math.PI;
+    const y = circles * this.circle - idx * 2.5 + 100;
     const object3D = new THREE.Object3D();
     object3D.position.setFromCylindricalCoords(this.radius, theta, y);
     vector.x = object3D.position.x * 2;
@@ -540,14 +547,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
       new TWEEN.Tween(e.position)
         .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
-        .easing(TWEEN.Easing.Exponential.InOut).start();
+        .easing(TWEEN.Easing.Exponential.InOut)
+        .start();
 
       new TWEEN.Tween(e.rotation)
         .to({ x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration)
-        .easing(TWEEN.Easing.Exponential.InOut).start();
+        .easing(TWEEN.Easing.Exponential.InOut)
+        .start();
     });
 
-    new TWEEN.Tween(this).to({}, duration * 2).onUpdate(() => this.render()).start();
+    new TWEEN.Tween(this)
+      .to({}, duration * 2)
+      .onUpdate(() => this.render())
+      .start();
   }
 
   /**
@@ -569,21 +581,21 @@ export class AppComponent implements OnInit, OnDestroy {
       } else if (len % 3 === 0) {
         cols = 3;
       } else {
-        cols = Math.round(1.0 * len / 2.0 + 0.5);
+        cols = Math.round((1.0 * len) / 2.0 + 0.5);
         if (cols > 5) {
           cols = 5;
         }
       }
     }
-    const rows = len % cols === 0 ? Math.max(Math.round(1.0 * len / cols), 1) : Math.max(Math.round(1.0 * len / cols + 0.5), 1);
+    const rows = len % cols === 0 ? Math.max(Math.round((1.0 * len) / cols), 1) : Math.max(Math.round((1.0 * len) / cols + 0.5), 1);
     this.targets.winnerPositions = [];
     const len2 = this.empList.length - len;
     const cols2 = Math.max(Math.round(Math.sqrt(1.0 * len2 * Const.HW_RATIO) + 0.5), 1);
-    const rows2 = Math.max(Math.round(1.0 * len2 / cols2 + 0.5), 1);
+    const rows2 = Math.max(Math.round((1.0 * len2) / cols2 + 0.5), 1);
     let idx = 0;
     let idx2 = 0;
     const empIds = lottoInfo.empList.map(e => e.empId);
-    this.empList.forEach((e) => {
+    this.empList.forEach(e => {
       if (e.prizeFlag === Const.PrizeFlag.WIN && empIds.includes(e.empId)) {
         $('.element.' + e.empId).addClass('winner');
         const object3D = new THREE.Object3D();
@@ -662,24 +674,18 @@ export class AppComponent implements OnInit, OnDestroy {
   private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean, prizeGroup: PrizeGroup): number {
     let empRate = 0;
     // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
-    if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
-      return empRate;
-    }
-    // 员工为高奖项抽奖组时不参与抽低等奖（三等奖以下）
-    if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP && this.prizeInfo.prizeId >= Const.LottoConig.PRIZELVL_LIMIT) {
+    if (
+      (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) ||
+      (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP && this.prizeInfo.prizeId >= Const.LottoConig.PRIZELVL_LIMIT)
+    ) {
       return empRate;
     }
     // 循环奖项分组
     if (unlimitGroup || prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP || prizeGroup.groupId === empInfo.groupId) {
       // 未限定抽奖组ID 或 未指定抽奖组ID 或 为指定组内成员时，返回中奖权值
-      if (empInfo.prizeFlag === Const.PrizeFlag.NONE ||
-          (unlimitWinned && empInfo.prizeFlag !== Const.PrizeFlag.GIVEUP)) {
+      if (empInfo.prizeFlag === Const.PrizeFlag.NONE || (unlimitWinned && empInfo.prizeFlag !== Const.PrizeFlag.GIVEUP)) {
         // 未中奖状态 或 允许重复中奖且未弃奖状态，计算中奖权值
         empRate = empInfo.empRate;
-        // 员工为高奖项抽奖组时进行加权处理
-        if (empInfo.groupId === Const.LottoConig.HIGHLVL_GROUP && this.prizeInfo.prizeId <= Const.LottoConig.HIGHLVL_LIMIT) {
-          empRate = empRate * this.highLvlRate;
-        }
       }
     }
     return empRate;
