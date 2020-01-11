@@ -13,10 +13,9 @@ import { PrizeService } from 'projects/common/service/prize.service';
 @Component({
   selector: 'ons-page[lotto]',
   templateUrl: './lotto.component.html',
-  styleUrls: ['./lotto.component.css']
+  styleUrls: ['./lotto.component.css'],
 })
 export class LottoComponent implements OnInit, OnDestroy {
-
   // 系统常量
   C = Const;
 
@@ -50,7 +49,7 @@ export class LottoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stompClient.onDisconnect = (frame) => {
+    this.stompClient.onDisconnect = frame => {
       console.log('control disconnected' + frame);
       this.connected = false;
     };
@@ -65,10 +64,10 @@ export class LottoComponent implements OnInit, OnDestroy {
     this.stompClient.webSocketFactory = () => {
       return new SockJS(environment.endPoint);
     };
-    this.stompClient.onConnect = (frame) => {
+    this.stompClient.onConnect = frame => {
       this.connected = true;
       console.log('control connected' + frame);
-      this.stompClient.subscribe(Const.STATUS_CHANGE, (statusInfo) => {
+      this.stompClient.subscribe(Const.STATUS_CHANGE, statusInfo => {
         this.recvStatus(JSON.parse(statusInfo.body));
       });
       this.stompClient.subscribe(Const.STATUS_BROADCAST, () => {
@@ -98,7 +97,6 @@ export class LottoComponent implements OnInit, OnDestroy {
    * 准备抽选
    */
   readyLotto() {
-    console.log('### control ready');
     this.prizeInfo.prizeStatus = Const.PrizeStatus.READYING;
     this.sendCommand(Const.LottoControl.READY);
   }
@@ -107,7 +105,6 @@ export class LottoComponent implements OnInit, OnDestroy {
    * 启动抽选
    */
   startLotto() {
-    console.log('### control start');
     this.prizeInfo.prizeStatus = Const.PrizeStatus.STARTTING;
     this.sendCommand(Const.LottoControl.START);
   }

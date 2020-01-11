@@ -192,10 +192,6 @@ export const Const = {
     UNLIMIT_GROUP: '000000',
     /** 限定非现金奖组 */
     NOCASH_GROUP: 'IC1990',
-    /** 奖品等级限制 */
-    PRIZELVL_LIMIT: 'LV30',
-    /** 限定高奖项组 */
-    HIGHLVL_GROUP: 'ICZZZ0',
   },
 
   /** 确认标识 */
