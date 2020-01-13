@@ -1,8 +1,8 @@
-html, body {
+html,
+body {
   height: 100%;
 }
 body {
-  background-image: url(projects/common/assets/images/lottoback.jpg);
   margin: 0;
   overflow: hidden;
 }
@@ -90,7 +90,7 @@ body {
   height: 500px;
 }
 /** 为了图片引用路径使用 */
-.cash {
+/* .cash {
   background-image: url(projects/common/assets/images/cash.png);
 }
 .EX01 {
@@ -116,4 +116,4 @@ body {
 }
 .qrcode {
   background-image: url(projects/common/assets/images/qrcode.png);
-}
+} */

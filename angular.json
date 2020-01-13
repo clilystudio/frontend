@@ -42,17 +42,8 @@
             "main": "projects/manage/src/main.ts",
             "polyfills": "projects/manage/src/polyfills.ts",
             "tsConfig": "projects/manage/tsconfig.app.json",
-            "assets": [
-              "projects/manage/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/common/assets",
-                "output": "/assets/"
-              }
-            ],
-            "styles": [
-              "projects/manage/src/styles.css"
-            ],
+            "assets": [],
+            "styles": ["projects/manage/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -103,12 +94,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/manage/tsconfig.app.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["projects/manage/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -152,17 +139,8 @@
             "main": "projects/control/src/main.ts",
             "polyfills": "projects/control/src/polyfills.ts",
             "tsConfig": "projects/control/tsconfig.app.json",
-            "assets": [
-              "projects/control/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/common/assets",
-                "output": "/assets/"
-              }
-            ],
-            "styles": [
-              "projects/control/src/styles.css"
-            ],
+            "assets": [],
+            "styles": ["projects/control/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -213,12 +191,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/control/tsconfig.app.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["projects/control/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -262,17 +236,8 @@
             "main": "projects/lotto/src/main.ts",
             "polyfills": "projects/lotto/src/polyfills.ts",
             "tsConfig": "projects/lotto/tsconfig.app.json",
-            "assets": [
-              "projects/lotto/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/common/assets",
-                "output": "/assets/"
-              }
-            ],
-            "styles": [
-              "projects/lotto/src/styles.css"
-            ],
+            "assets": [],
+            "styles": ["projects/lotto/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -323,12 +288,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/lotto/tsconfig.app.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["projects/lotto/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

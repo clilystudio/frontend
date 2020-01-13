@@ -153,7 +153,7 @@ export const Const = {
   SEND_DELAY: 2500,
 
   // 资源基础路径
-  RES_BASE_URL: '/lotto/',
+  RES_BASE_URL: '/ext/lotto/',
 
   // 入职年限
   WORK_YEAR_LIMIT: 14,
