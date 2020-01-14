@@ -1,11 +1,11 @@
 import { Const } from '../const';
 import { PrizeGroup } from './prizeGroup';
+import { PrizeEmpInfo } from './prizeEmpInfo';
 
 /**
  * 奖项信息
  */
 export class PrizeInfo {
-
   // 选中状态
   selected = false;
 
@@ -41,4 +41,7 @@ export class PrizeInfo {
 
   // 奖项分组信息
   prizeGroups: PrizeGroup[];
+
+  // 中奖员工一览
+  empInfos: PrizeEmpInfo[];
 }

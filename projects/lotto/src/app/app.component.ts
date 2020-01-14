@@ -646,6 +646,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * 取得奖项分组信息
    */
   private getPrizeGroup(): void {
+    console.log('###empInfos:' + JSON.stringify(this.prizeInfo.empInfos));
     this.prizeInfo.prizeGroups = [];
     const groups = this.prizeInfo.groupLimit.split(Const.Delimiter.GROUP);
     groups.forEach(g => {
@@ -659,26 +660,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
       return g.prizeNumber > g.prizeWinner;
     });
-
     if (this.prizeInfo.prizeId < 'LV30' && this.prizeInfo.prizeGroups.length === 1) {
       const prizeGroup = this.prizeInfo.prizeGroups[0];
-      if (prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP) {
-        if (
-          this.prizeInfo.prizeType === Const.PrizeType.CASH &&
-          prizeGroup.prizeNumber >= 3 &&
-          prizeGroup.prizeWinner < Math.ceil(prizeGroup.prizeNumber / 6)
-        ) {
+      if (prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP && prizeGroup.prizeNumber > prizeGroup.prizeWinner) {
+        const empInfos = this.prizeInfo.empInfos.filter(e => {
+          return e.groupId === 'IC1100';
+        });
+        if (prizeGroup.prizeNumber >= 3 && empInfos.length < Math.ceil(prizeGroup.prizeNumber / 6)) {
           const prizeGroup1 = new PrizeGroup();
           prizeGroup1.groupId = 'IC1100';
-          prizeGroup1.prizeNumber = Math.ceil(prizeGroup.prizeNumber / 6);
-          prizeGroup1.prizeWinner = 0;
-          prizeGroup.prizeNumber = prizeGroup.prizeNumber - prizeGroup1.prizeNumber;
-          this.prizeInfo.prizeGroups.push(prizeGroup1);
-          this.prizeInfo.prizeGroups[0] = prizeGroup;
-        } else if (prizeGroup.prizeNumber >= 5 && prizeGroup.prizeWinner === 0) {
-          const prizeGroup1 = new PrizeGroup();
-          prizeGroup1.groupId = 'IC1100';
-          prizeGroup1.prizeNumber = 1;
+          prizeGroup1.prizeNumber = Math.min(Math.ceil(prizeGroup.prizeNumber / 6), prizeGroup.prizeNumber - prizeGroup.prizeWinner);
           prizeGroup1.prizeWinner = 0;
           prizeGroup.prizeNumber = prizeGroup.prizeNumber - prizeGroup1.prizeNumber;
           this.prizeInfo.prizeGroups.push(prizeGroup1);
@@ -686,7 +677,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     }
-
     this.prizeInfo.prizeGroups.sort((g1, g2) => {
       return g1.prizeNumber - g2.prizeNumber;
     });
