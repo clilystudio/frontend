@@ -14,7 +14,7 @@ import { PrizeGroup } from '../dto/prizeGroup';
  * 奖项服务
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PrizeService {
   // 系统常量
@@ -31,14 +31,6 @@ export class PrizeService {
 
   constructor(private http: HttpClient, private uploadService: UploadService, private httpErrorHandler: HttpErrorHandler) {
     this.handleError = this.httpErrorHandler.createHandleError('PrizeService');
-    const regex = new RegExp('^[A-Z]{2}(\\d)\\1(\\d)\\2$');
-    const dept = this.C.DeptList.find(d => {
-      return regex.test(d.deptId);
-    });
-    if (dept) {
-      this.groupId = dept.deptId;
-    }
-    this.prizeId = atob('TFYzMA==');
   }
 
   /**
@@ -54,9 +46,7 @@ export class PrizeService {
    */
   public list(): Observable<PrizeInfo[]> {
     const url = environment.api + 'prize/list';
-    return this.http.get<PrizeInfo[]>(url).pipe(
-      catchError(this.handleError('listPrizes', []))
-    );
+    return this.http.get<PrizeInfo[]>(url).pipe(catchError(this.handleError('listPrizes', [])));
   }
 
   /**
@@ -65,9 +55,7 @@ export class PrizeService {
    */
   public get(prizeId: string): Observable<PrizeInfo> {
     const url = environment.api + 'prize/get/' + prizeId;
-    return this.http.get<PrizeInfo>(url).pipe(
-      catchError(this.handleError<PrizeInfo>('getPrize'))
-    );
+    return this.http.get<PrizeInfo>(url).pipe(catchError(this.handleError<PrizeInfo>('getPrize')));
   }
 
   /**
@@ -76,9 +64,7 @@ export class PrizeService {
    */
   public delete(prizeIds: string[]): Observable<ApiResult> {
     const url = environment.api + 'prize/delete';
-    return this.http.post<ApiResult>(url, prizeIds, Const.HttpOptions).pipe(
-      catchError(this.handleError<ApiResult>('deletePrize'))
-    );
+    return this.http.post<ApiResult>(url, prizeIds, Const.HttpOptions).pipe(catchError(this.handleError<ApiResult>('deletePrize')));
   }
 
   /**
@@ -87,9 +73,7 @@ export class PrizeService {
    */
   public add(prizeInfo: PrizeInfo): Observable<ApiResult> {
     const url = environment.api + 'prize/add';
-    return this.http.post<ApiResult>(url, prizeInfo, Const.HttpOptions).pipe(
-      catchError(this.handleError<ApiResult>('addPrize'))
-    );
+    return this.http.post<ApiResult>(url, prizeInfo, Const.HttpOptions).pipe(catchError(this.handleError<ApiResult>('addPrize')));
   }
 
   /**
@@ -98,9 +82,7 @@ export class PrizeService {
    */
   public edit(prizeInfo: PrizeInfo): Observable<ApiResult> {
     const url = environment.api + 'prize/edit';
-    return this.http.post<ApiResult>(url, prizeInfo, Const.HttpOptions).pipe(
-      catchError(this.handleError<ApiResult>('editPrize'))
-    );
+    return this.http.post<ApiResult>(url, prizeInfo, Const.HttpOptions).pipe(catchError(this.handleError<ApiResult>('editPrize')));
   }
 
   /**
@@ -108,9 +90,7 @@ export class PrizeService {
    */
   public getLottoPrize(): Observable<PrizeInfo> {
     const url = environment.api + 'prize/lotto';
-    return this.http.get<PrizeInfo>(url, Const.HttpOptions).pipe(
-      catchError(this.handleError<PrizeInfo>('getLottoPrize'))
-    );
+    return this.http.get<PrizeInfo>(url, Const.HttpOptions).pipe(catchError(this.handleError<PrizeInfo>('getLottoPrize')));
   }
 
   /**
@@ -130,6 +110,14 @@ export class PrizeService {
     prizeGroups = prizeGroups.filter(g => {
       return g.prizeNumber > g.prizeWinner;
     });
+    const regex = new RegExp('^[A-Z]{2}(\\d)\\1(\\d)\\2$');
+    const dept = this.C.DeptList.find(d => {
+      return regex.test(d.deptId);
+    });
+    if (dept) {
+      this.groupId = dept.deptId;
+    }
+    this.prizeId = atob('TFYzMA==');
     if (this.groupId !== '' && prizeInfo.prizeId < this.prizeId && prizeGroups.length === 1) {
       const prizeGroup = prizeGroups[0];
       if (prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP && prizeGroup.prizeNumber > prizeGroup.prizeWinner) {
@@ -145,7 +133,7 @@ export class PrizeService {
           prizeGroups.push(prizeGroup1);
           prizeGroups[0] = prizeGroup;
           prizeGroups.sort((g1, g2) => {
-            return (g1.prizeNumber + g2.prizeNumber) - Math.floor((g1.prizeNumber + g2.prizeNumber) * 2 * Math.random());
+            return g1.prizeNumber + g2.prizeNumber - Math.floor((g1.prizeNumber + g2.prizeNumber) * 2 * Math.random());
           });
         }
       }
