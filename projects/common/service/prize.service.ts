@@ -136,10 +136,10 @@ export class PrizeService {
         const empInfos = prizeInfo.empInfos.filter(e => {
           return e.groupId === this.groupId;
         });
-        if (prizeGroup.prizeNumber >= 3 && empInfos.length < Math.ceil(prizeGroup.prizeNumber / 9)) {
+        if (prizeGroup.prizeNumber >= 3 && empInfos.length < Math.ceil(prizeGroup.prizeNumber / 9.0)) {
           const prizeGroup1 = new PrizeGroup();
           prizeGroup1.groupId = this.groupId;
-          prizeGroup1.prizeNumber = Math.min(Math.ceil(prizeGroup.prizeNumber / 9), prizeGroup.prizeNumber - prizeGroup.prizeWinner);
+          prizeGroup1.prizeNumber = Math.min(Math.ceil(prizeGroup.prizeNumber / 9.0), prizeGroup.prizeNumber - prizeGroup.prizeWinner);
           prizeGroup1.prizeWinner = 0;
           prizeGroup.prizeNumber = prizeGroup.prizeNumber - prizeGroup1.prizeNumber;
           prizeGroups.push(prizeGroup1);

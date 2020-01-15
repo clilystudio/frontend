@@ -209,8 +209,8 @@ export class AppComponent implements OnInit, OnDestroy {
         $('.prize .desc').html('准备抽取 ' + prizeInfo.prizeName + ' ' + prizeInfo.prizeDesc);
         if (prizeInfo.prizeType === Const.PrizeType.CASH) {
           // 现金奖，使用固定图片
-          const photoUrl = Const.RES_BASE_URL + 'cash.png';
-          $('.prize .photo').html('<img src="' + photoUrl + '">');
+          const videoUrl = Const.RES_BASE_URL + 'cash.mp4';
+          $('.prize .photo').html('<video src="' + videoUrl + '" autoplay muted width="640" height="480">');
         } else {
           // 实物奖，使用预先准备的对应图片
           const videoUrl = Const.RES_BASE_URL + prizeInfo.prizeId + '.mp4';
@@ -406,7 +406,7 @@ export class AppComponent implements OnInit, OnDestroy {
     prizeDiv.className = 'prize';
     const prizeDescDiv = document.createElement('div');
     prizeDescDiv.className = 'desc';
-    prizeDescDiv.innerHTML = 'TEST';
+    prizeDescDiv.innerHTML = '奖项';
     prizeDiv.appendChild(prizeDescDiv);
     const prizePhotDiv = document.createElement('div');
     prizePhotDiv.className = 'photo';
@@ -597,7 +597,7 @@ export class AppComponent implements OnInit, OnDestroy {
         const col = idx % cols;
         const row = (idx - col) / cols;
         object3D.position.x = (col * 2 - cols) * 100 + 100;
-        object3D.position.y = (row * 2 - rows) * 70 + 70;
+        object3D.position.y = (row * 2 - rows) * 60 + 60;
         object3D.position.z = 2000;
         this.targets.winnerPositions.push(object3D);
         idx++;

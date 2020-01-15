@@ -9,7 +9,7 @@ body {
 /* 员工 */
 .element {
   width: 180px;
-  height: 120px;
+  height: 100px;
   box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
   border: 1px solid rgba(127, 255, 255, 0.25);
   text-align: center;
@@ -23,7 +23,7 @@ body {
 /* 员工姓名 */
 .element .name {
   position: absolute;
-  top: 15px;
+  top: 12px;
   left: 0px;
   right: 0px;
   font-size: 36px;
@@ -33,14 +33,15 @@ body {
 /* 员工详细 */
 .element .detail {
   position: absolute;
-  bottom: 15px;
+  bottom: 12px;
   left: 0px;
   right: 0px;
   font-size: 16px;
 }
 /* 男性员工字体颜色 */
 .element.male {
-  color: rgba(127, 255, 255, 0.75);
+  /* color: rgba(127, 255, 255, 0.75); */
+  color: rgba(255, 255, 127, 0.75);
 }
 /* 女性员工字体颜色 */
 .element.female {
@@ -54,7 +55,7 @@ body {
 .element.winner {
   background-color: rgba(235, 63, 47, 1);
 }
-/* 此次中奖员工 */
+/* 弃奖员工 */
 .element.giveup {
   background-color: rgba(128, 128, 128, 0.25);
 }
@@ -89,31 +90,3 @@ body {
   right: 0px;
   height: 500px;
 }
-/** 为了图片引用路径使用 */
-/* .cash {
-  background-image: url(projects/common/assets/images/cash.png);
-}
-.EX01 {
-  background-image: url(projects/common/assets/images/EX01.png);
-}
-.EX02 {
-  background-image: url(projects/common/assets/images/EX02.png);
-}
-.LV10 {
-  background-image: url(projects/common/assets/images/LV10.png);
-}
-.LV11 {
-  background-image: url(projects/common/assets/images/LV11.png);
-}
-.LV12 {
-  background-image: url(projects/common/assets/images/LV12.png);
-}
-.LV13 {
-  background-image: url(projects/common/assets/images/LV13.png);
-}
-.LV14 {
-  background-image: url(projects/common/assets/images/LV14.png);
-}
-.qrcode {
-  background-image: url(projects/common/assets/images/qrcode.png);
-} */
