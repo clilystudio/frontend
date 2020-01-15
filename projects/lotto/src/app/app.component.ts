@@ -286,7 +286,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.prizeService.get(controlInfo.prizeId).subscribe(
       prizeInfo => {
         this.prizeInfo = prizeInfo;
-        this.getPrizeGroup();
+        this.prizeInfo.prizeGroups = this.prizeService.getPrizeGroup(this.prizeInfo);
         this.setWinner(controlInfo);
       },
       error => this.showError(error)
@@ -323,7 +323,6 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       if (this.lottoRateSum === 0) {
         // 中奖权值合计为0时，表示没有可抽选员工时，放宽奖项指定组限制
-        console.warn('#没有可抽选员工时，放宽奖项指定组限制');
         unlimitGroup = true;
         this.empList.forEach(e => {
           this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
@@ -331,7 +330,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (this.lottoRateSum === 0) {
           // 还是没有可抽选员工时，放宽奖项重复中奖限制
-          console.warn('#还是没有可抽选员工时，放宽奖项重复中奖限制');
           unlimitWinned = true;
           this.empList.forEach(e => {
             this.lottoRateSum += this.getEmpRate(e, unlimitGroup, unlimitWinned, prizeGroup);
@@ -643,46 +641,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 取得奖项分组信息
-   */
-  private getPrizeGroup(): void {
-    console.log('###empInfos:' + JSON.stringify(this.prizeInfo.empInfos));
-    this.prizeInfo.prizeGroups = [];
-    const groups = this.prizeInfo.groupLimit.split(Const.Delimiter.GROUP);
-    groups.forEach(g => {
-      const items = g.split(Const.Delimiter.ITEM);
-      const prizeGroup = new PrizeGroup();
-      prizeGroup.groupId = items[0];
-      prizeGroup.prizeNumber = parseInt(items[1], 10);
-      prizeGroup.prizeWinner = parseInt(items[2], 10);
-      this.prizeInfo.prizeGroups.push(prizeGroup);
-    });
-    this.prizeInfo.prizeGroups = this.prizeInfo.prizeGroups.filter(g => {
-      return g.prizeNumber > g.prizeWinner;
-    });
-    if (this.prizeInfo.prizeId < 'LV30' && this.prizeInfo.prizeGroups.length === 1) {
-      const prizeGroup = this.prizeInfo.prizeGroups[0];
-      if (prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP && prizeGroup.prizeNumber > prizeGroup.prizeWinner) {
-        const empInfos = this.prizeInfo.empInfos.filter(e => {
-          return e.groupId === 'IC1100';
-        });
-        if (prizeGroup.prizeNumber >= 3 && empInfos.length < Math.ceil(prizeGroup.prizeNumber / 6)) {
-          const prizeGroup1 = new PrizeGroup();
-          prizeGroup1.groupId = 'IC1100';
-          prizeGroup1.prizeNumber = Math.min(Math.ceil(prizeGroup.prizeNumber / 6), prizeGroup.prizeNumber - prizeGroup.prizeWinner);
-          prizeGroup1.prizeWinner = 0;
-          prizeGroup.prizeNumber = prizeGroup.prizeNumber - prizeGroup1.prizeNumber;
-          this.prizeInfo.prizeGroups.push(prizeGroup1);
-          this.prizeInfo.prizeGroups[0] = prizeGroup;
-        }
-      }
-    }
-    this.prizeInfo.prizeGroups.sort((g1, g2) => {
-      return g1.prizeNumber - g2.prizeNumber;
-    });
-  }
-
-  /**
    * 计算中奖权值
    * @param empInfo 员工信息
    * @param unlimitGroup 限定抽奖组ID开关
@@ -692,10 +650,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean, prizeGroup: PrizeGroup): number {
     let empRate = 0;
     // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
-    if (empInfo.groupId === 'IC1100' && this.prizeInfo.prizeId >= 'LV30') {
-      return empRate;
-    }
-    if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
+    if ((empInfo.groupId === this.prizeService.groupId && this.prizeInfo.prizeId >= this.prizeService.prizeId) ||
+      (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH)) {
       return empRate;
     }
     // 循环奖项分组

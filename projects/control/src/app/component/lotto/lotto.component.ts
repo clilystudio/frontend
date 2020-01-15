@@ -113,7 +113,6 @@ export class LottoComponent implements OnInit, OnDestroy {
    * 停止抽选
    */
   stopLotto() {
-    console.log('### control stop');
     this.prizeInfo.prizeStatus = Const.PrizeStatus.STOPPING;
     this.sendCommand(Const.LottoControl.STOP);
   }
