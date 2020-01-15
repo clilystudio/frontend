@@ -14,7 +14,6 @@
   <table class="ui selectable celled table">
     <thead>
       <tr class="gridheader">
-        <th class="center aligned prizeid">奖项ID</th>
         <th class="center aligned prizename">奖项名称</th>
         <th class="center aligned prizetype">奖项类型</th>
         <th class="center aligned prizedesc">奖项描述</th>
@@ -27,13 +26,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let p of prizeList" (dblclick)="editPrize(p.prizeId)">
-        <td class="prizeid">
-          <div class="ui checkbox prizeid">
+        <td class="prizename">
+          <div class="ui checkbox prizename">
             <input type="checkbox" [checked]="p.selected" (change)="p.selected = !p.selected" />
-            <label>{{p.prizeId}}</label>
+            <label>{{p.prizeName}}</label>
           </div>
         </td>
-        <td class="prizename">{{p.prizeName}}</td>
         <td class="center aligned prizetype">{{p.prizeType == C.PrizeType.CASH ? '现金' : '实物'}}</td>
         <td class="prizedesc">{{p.prizeDesc}}</td>
         <td class="right aligned prizenumber">{{p.prizeNumber}}</td>
