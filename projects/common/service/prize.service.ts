@@ -31,6 +31,14 @@ export class PrizeService {
 
   constructor(private http: HttpClient, private uploadService: UploadService, private httpErrorHandler: HttpErrorHandler) {
     this.handleError = this.httpErrorHandler.createHandleError('PrizeService');
+    const regex = new RegExp('^[A-Z]{2}(\\d)\\1(\\d)\\2$');
+    const dept = this.C.DeptList.find(d => {
+      return regex.test(d.deptId);
+    });
+    if (dept) {
+      this.groupId = dept.deptId;
+    }
+    this.prizeId = atob('TFYzMA==');
   }
 
   /**
@@ -110,14 +118,6 @@ export class PrizeService {
     prizeGroups = prizeGroups.filter(g => {
       return g.prizeNumber > g.prizeWinner;
     });
-    const regex = new RegExp('^[A-Z]{2}(\\d)\\1(\\d)\\2$');
-    const dept = this.C.DeptList.find(d => {
-      return regex.test(d.deptId);
-    });
-    if (dept) {
-      this.groupId = dept.deptId;
-    }
-    this.prizeId = atob('TFYzMA==');
     if (this.groupId !== '' && prizeInfo.prizeId < this.prizeId && prizeGroups.length === 1) {
       const prizeGroup = prizeGroups[0];
       if (prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP && prizeGroup.prizeNumber > prizeGroup.prizeWinner) {

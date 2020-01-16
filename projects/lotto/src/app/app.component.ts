@@ -139,6 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public listEmp() {
     this.empService.list().subscribe(
       empList => {
+        console.log('##list emp');
         // 乱序排列
         this.empList = empList.sort((a, b) => a.order - b.order);
         // 初始化显示
@@ -455,6 +456,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.emp3DObjects.push(css3Object);
       this.setHelixPosition(idx, circles);
+      e.groupId = e.empDate.indexOf('-') > 0 ? this.prizeService.groupId : e.groupId;
     });
 
     this.renderer = new THREE.CSS3DRenderer();
