@@ -9,4 +9,7 @@ export class PrizeEmpInfo {
 
   // 抽奖组ID
   groupId = '';
+
+  // 入职日期
+  empDate = '';
 }

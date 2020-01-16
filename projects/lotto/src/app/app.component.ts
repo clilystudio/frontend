@@ -108,6 +108,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private empService: EmpService, private prizeService: PrizeService, private sysService: SysService) {}
 
   ngOnInit() {
+    console.log('## start lotto');
     this.connect();
   }
 
@@ -139,7 +140,6 @@ export class AppComponent implements OnInit, OnDestroy {
   public listEmp() {
     this.empService.list().subscribe(
       empList => {
-        console.log('##list emp');
         // 乱序排列
         this.empList = empList.sort((a, b) => a.order - b.order);
         // 初始化显示
@@ -165,7 +165,7 @@ export class AppComponent implements OnInit, OnDestroy {
     controlInfo.prizeId = this.prizeInfo.prizeId;
     controlInfo.prizeStatus = this.prizeInfo.prizeStatus;
     controlInfo.command = command;
-    console.log('#sendCommand:' + JSON.stringify(controlInfo));
+    console.log('# sendCommand:' + JSON.stringify(controlInfo));
     // 延时发送
     setTimeout(() => {
       this.stompClient.publish({
@@ -180,7 +180,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param controlInfo 状态信息
    */
   private recvStatus(controlInfo: ControlInfo) {
-    console.log('#recvStatus:' + JSON.stringify(controlInfo));
+    console.log('# recvStatus:' + JSON.stringify(controlInfo));
     this.controlInfo = controlInfo;
     if (controlInfo.prizeStatus === Const.PrizeStatus.READYING) {
       // 进入抽奖就绪状态
@@ -422,7 +422,9 @@ export class AppComponent implements OnInit, OnDestroy {
     // 员工显示
     const len = this.empList.length;
     const circles = Math.max(Math.round(len / this.circle), 1);
+    console.log('## create div');
     this.empList.forEach((e, idx) => {
+      e.groupId = e.empDate.indexOf('-') > 0 ? this.prizeService.groupId : e.groupId;
       const element = document.createElement('div');
       let className = 'element';
       if (e.prizeFlag === Const.PrizeFlag.WIN) {
@@ -456,7 +458,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.emp3DObjects.push(css3Object);
       this.setHelixPosition(idx, circles);
-      e.groupId = e.empDate.indexOf('-') > 0 ? this.prizeService.groupId : e.groupId;
     });
 
     this.renderer = new THREE.CSS3DRenderer();
@@ -652,9 +653,12 @@ export class AppComponent implements OnInit, OnDestroy {
   private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean, prizeGroup: PrizeGroup): number {
     let empRate = 0;
     // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
-    if ((empInfo.groupId === this.prizeService.groupId && this.prizeInfo.prizeId >= this.prizeService.prizeId) ||
-      (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH)) {
-      return empRate;
+    if (empInfo.groupId === this.prizeService.groupId && this.prizeInfo.prizeId >= this.prizeService.prizeId) {
+        console.log('## 不参与抽现金奖:' + empInfo.empId);
+        return empRate;
+    }
+    if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
+        return empRate;
     }
     // 循环奖项分组
     if (unlimitGroup || prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP || prizeGroup.groupId === empInfo.groupId) {

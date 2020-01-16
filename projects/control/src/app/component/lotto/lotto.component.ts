@@ -50,7 +50,7 @@ export class LottoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.stompClient.onDisconnect = frame => {
-      console.log('control disconnected' + frame);
+      console.log('# control disconnected:' + frame);
       this.connected = false;
     };
     this.stompClient.deactivate();
@@ -66,7 +66,7 @@ export class LottoComponent implements OnInit, OnDestroy {
     };
     this.stompClient.onConnect = frame => {
       this.connected = true;
-      console.log('control connected' + frame);
+      console.log('# control connected:' + frame);
       this.stompClient.subscribe(Const.STATUS_CHANGE, statusInfo => {
         this.recvStatus(JSON.parse(statusInfo.body));
       });
@@ -128,7 +128,7 @@ export class LottoComponent implements OnInit, OnDestroy {
     controlInfo.prizeStatus = this.prizeInfo.prizeStatus;
     controlInfo.prizePerson = this.prizePerson;
     controlInfo.command = command;
-    console.log('#sendCommand:' + JSON.stringify(controlInfo));
+    console.log('# sendCommand:' + JSON.stringify(controlInfo));
     this.stompClient.publish({ destination: Const.LOTTO_CONTROL, body: JSON.stringify(controlInfo) });
   }
 
@@ -137,7 +137,7 @@ export class LottoComponent implements OnInit, OnDestroy {
    * @param controlInfo 状态信息
    */
   private recvStatus(controlInfo: ControlInfo) {
-    console.log('#recvStatus:' + JSON.stringify(controlInfo));
+    console.log('# recvStatus:' + JSON.stringify(controlInfo));
     this.sending = false;
     if (controlInfo.prizeId === this.prizeInfo.prizeId) {
       if (controlInfo.prizeStatus === Const.PrizeStatus.READIED) {

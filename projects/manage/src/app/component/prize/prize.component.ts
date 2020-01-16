@@ -267,7 +267,7 @@ export class PrizeComponent implements OnInit {
         prize.prizeOrder = orderNew;
         this.prizeService.edit(prize).subscribe(result => {
           if (result.code === Const.ResultCode.SUCCESS) {
-            console.log('### 设置抽奖顺序成功');
+            console.log('# 设置抽奖顺序成功');
           } else {
             this.postFinish(result);
           }
