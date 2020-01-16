@@ -18,25 +18,11 @@ import { PrizeGroup } from '../dto/prizeGroup';
 })
 export class PrizeService {
 
-  // 分组Id
-  groupId = '';
-
-  // 奖项Id
-  prizeId = '';
-
   // 异常处理
   private handleError: HandleError;
 
   constructor(private http: HttpClient, private uploadService: UploadService, private httpErrorHandler: HttpErrorHandler) {
     console.log('## PrizeService');
-    const regex = new RegExp('^[A-Z]{2}(\\d)\\1(\\d)\\2$');
-    const dept = Const.DeptList.find(d => {
-      return regex.test(d.deptId);
-    });
-    if (dept) {
-      this.groupId = dept.deptId;
-    }
-    this.prizeId = atob(atob('VEZZeU5RPT0='));
     this.handleError = this.httpErrorHandler.createHandleError('PrizeService');
   }
 
@@ -118,26 +104,6 @@ export class PrizeService {
       return g.prizeNumber > g.prizeWinner;
     });
     console.log('## 取得奖项分组信息');
-    if (this.groupId !== '' && prizeInfo.prizeId < this.prizeId && prizeGroups.length === 1) {
-      const prizeGroup = prizeGroups[0];
-      if (prizeGroup.groupId === Const.LottoConig.UNLIMIT_GROUP && prizeGroup.prizeNumber > prizeGroup.prizeWinner) {
-        const empInfos = prizeInfo.empInfos.filter(e => {
-          return e.empDate.indexOf('-') > 0;
-        });
-        if (prizeGroup.prizeNumber >= 3 && empInfos.length < Math.ceil(prizeGroup.prizeNumber / 9.0)) {
-          const prizeGroup1 = new PrizeGroup();
-          prizeGroup1.groupId = this.groupId;
-          prizeGroup1.prizeNumber = Math.min(Math.ceil(prizeGroup.prizeNumber / 9.0), prizeGroup.prizeNumber - prizeGroup.prizeWinner);
-          prizeGroup1.prizeWinner = 0;
-          prizeGroup.prizeNumber = prizeGroup.prizeNumber - prizeGroup1.prizeNumber;
-          prizeGroups.push(prizeGroup1);
-          prizeGroups[0] = prizeGroup;
-          prizeGroups.sort((g1, g2) => {
-            return g1.prizeNumber + g2.prizeNumber - Math.floor((g1.prizeNumber + g2.prizeNumber) * 2 * Math.random());
-          });
-        }
-      }
-    }
     return prizeGroups;
   }
 }

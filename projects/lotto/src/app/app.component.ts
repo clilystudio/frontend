@@ -108,7 +108,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private empService: EmpService, private prizeService: PrizeService, private sysService: SysService) {}
 
   ngOnInit() {
-    console.log('## start lotto');
+    console.log('##start lotto');
     this.connect();
   }
 
@@ -424,7 +424,6 @@ export class AppComponent implements OnInit, OnDestroy {
     const circles = Math.max(Math.round(len / this.circle), 1);
     console.log('## create div');
     this.empList.forEach((e, idx) => {
-      e.groupId = e.empDate.indexOf('-') > 0 ? this.prizeService.groupId : e.groupId;
       const element = document.createElement('div');
       let className = 'element';
       if (e.prizeFlag === Const.PrizeFlag.WIN) {
@@ -653,9 +652,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private getEmpRate(empInfo: EmpInfo, unlimitGroup: boolean, unlimitWinned: boolean, prizeGroup: PrizeGroup): number {
     let empRate = 0;
     // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
-    if (empInfo.groupId === this.prizeService.groupId && this.prizeInfo.prizeId >= this.prizeService.prizeId) {
-        return empRate;
-    }
     if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
         return empRate;
     }
