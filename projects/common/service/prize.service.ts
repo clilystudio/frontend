@@ -36,7 +36,7 @@ export class PrizeService {
     if (dept) {
       this.groupId = dept.deptId;
     }
-    this.prizeId = atob('TFYzMA==');
+    this.prizeId = atob(atob('VEZZeU5RPT0='));
     this.handleError = this.httpErrorHandler.createHandleError('PrizeService');
   }
 

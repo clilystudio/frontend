@@ -654,7 +654,6 @@ export class AppComponent implements OnInit, OnDestroy {
     let empRate = 0;
     // 员工为非现金抽奖组时不参与抽现金奖（协力员工现金奖会计记账无法处理）
     if (empInfo.groupId === this.prizeService.groupId && this.prizeInfo.prizeId >= this.prizeService.prizeId) {
-        console.log('## 不参与抽现金奖:' + empInfo.empId);
         return empRate;
     }
     if (empInfo.groupId === Const.LottoConig.NOCASH_GROUP && this.prizeInfo.prizeType === Const.PrizeType.CASH) {
